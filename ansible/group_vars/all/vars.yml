@@ -1,0 +1,6 @@
+---
+postgres_version: 10
+project_db_host: http://127.0.0.1
+postgres_admin_password: 'secret'
+postgres_admin_user: 'postgres'
+postgres_host: '/var/run/postgresql'
