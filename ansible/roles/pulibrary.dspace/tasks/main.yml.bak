@@ -2,7 +2,6 @@
 - name: create the dspace postgresql role
   postgresql_user:
     name: dspace
-    password: dspace
     db: dspace
     encrypted: yes
     role_attr_flags: '{{ application_dbuser_role_attr_flags }}'

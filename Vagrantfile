@@ -78,7 +78,7 @@ Vagrant.configure("2") do |config|
       server_name: "localhost",
       application_host: 'localhost:8484',
       application_host_protocol: 'http',
-      postgres_host: '/var/run/postgresql', # ?
+      postgres_host: 'localhost', # ?
       project_db_host: 'http://127.0.0.1',
       postgres_admin_user: 'postgres',
       postgres_admin_password: nil,
