@@ -1,7 +1,0 @@
----
-- name: create postgresql database
-  postgresql_db:
-    name: 'dspace'
-    encoding: 'UTF-8'
-    state: 'present'
-  become: true

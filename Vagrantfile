@@ -50,13 +50,14 @@ Vagrant.configure("2") do |config|
   # backing providers for Vagrant. These expose provider-specific options.
   # Example for VirtualBox:
   #
-  # config.vm.provider "virtualbox" do |vb|
+  config.vm.provider "virtualbox" do |vb|
   #   # Display the VirtualBox GUI when booting the machine
   #   vb.gui = true
   #
   #   # Customize the amount of memory on the VM:
   #   vb.memory = "1024"
-  # end
+      vb.name = "dspace"
+  end
   #
   # View the documentation for the provider you are using for more
   # information on available options.
@@ -70,28 +71,24 @@ Vagrant.configure("2") do |config|
   # SHELL
 
   config.vm.provision "ansible" do |ansible|
+    ansible.verbose = 'vvv'
     ansible.groups = {
       "dspace_development" => ["default"]
     }
 
     ansible.extra_vars = {
       server_name: "localhost",
-      application_host: 'localhost:8484',
-      application_host_protocol: 'http',
-      postgres_host: 'localhost', # ?
+      postgres_host: 'localhost',
       project_db_host: 'http://127.0.0.1',
       postgres_admin_user: 'postgres',
-      postgres_admin_password: nil,
+      postgres_admin_password: nil
     }
 
     ansible.playbook = "ansible/playbooks/dspace_development.yml"
-    # ansible.ask_vault_pass = true
 
-    # update start_at_task and re-run `vagrant provison` if your configuration scripts fail on a particular task
+    # update start_at_task and re-run `vagrant provision` if your configuration scripts fail on a particular task
     # and you want to restart the provisioning at the step where the failure occurred
     # ansible.start_at_task = "packages | update apt cache"
-    # config.ssh.private_key_path = "~/.ssh/id_rsa"
-    # config.ssh.username = "pulsys"
 
     # for further details on using ansible with vagrant, see
     # Ansible documentation: http://docs.ansible.com/ansible/guide_vagrant.html

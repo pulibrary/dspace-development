@@ -1,8 +1,0 @@
----
-- name: create postgresql db users
-  postgresql_user:
-    name: 'dspace'
-    db: 'dspace'
-    encrypted: yes
-    role_attr_flags: '{{ application_dbuser_role_attr_flags }}'
-    state: 'present'
