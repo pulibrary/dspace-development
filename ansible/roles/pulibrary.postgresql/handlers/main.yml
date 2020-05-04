@@ -1,0 +1,8 @@
+---
+- name: restart postgres
+  systemd:
+    name: postgresql
+    state: restarted
+  become: yes
+  when: postgresql_is_local
+

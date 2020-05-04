@@ -17,3 +17,4 @@ dependencies:
   - role: 'pulibrary.clamav'
   - role: 'pulibrary.openjdk'
   - role: 'pulibrary.tomcat8'
+  - role: 'pulibrary.postgresql'
