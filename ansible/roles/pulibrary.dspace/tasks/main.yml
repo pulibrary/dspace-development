@@ -20,14 +20,19 @@
   postgresql_user:
     name: dspace
     db: dspace
-    encrypted: yes
+    encrypted: true
     role_attr_flags: '{{ application_dbuser_role_attr_flags }}'
     state: 'present'
+
+- name: determine if pgcrypto is enabled for PostgreSQL
+  shell: psql -c "SELECT extname FROM pg_extension WHERE extname='pgcrypto';" dspace | grep pgcrypto
+  register: pg_crypto_enabled
 
 - name: enable the pgcrypto extension for PostgreSQL
   postgresql_query:
     db: dspace
     query: "CREATE EXTENSION pgcrypto;"
+    when: not pgcrypto_enabled
 
 - name: create the DSpace configuration file
   template:
