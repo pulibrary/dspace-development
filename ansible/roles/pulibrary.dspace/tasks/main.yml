@@ -25,14 +25,18 @@
     state: 'present'
 
 - name: determine if pgcrypto is enabled for PostgreSQL
-  shell: psql -c "SELECT extname FROM pg_extension WHERE extname='pgcrypto';" dspace | grep pgcrypto
-  register: pg_crypto_enabled
+  shell: set -o pipefail && psql -c "SELECT extname FROM pg_extension WHERE extname='pgcrypto';" dspace | grep pgcrypto
+  register: pgcrypto_result
+  changed_when:
+    - pgcrypto_result.rc == 0
+  failed_when:
+    - pgcrypto_result.rc == 1
 
 - name: enable the pgcrypto extension for PostgreSQL
   postgresql_query:
     db: dspace
     query: "CREATE EXTENSION pgcrypto;"
-    when: not pgcrypto_enabled
+    when: pgcrypto_result.rc == 1
 
 - name: create the DSpace configuration file
   template:
@@ -48,14 +52,16 @@
     group: dspace
 
 - name: build the Maven package
-  shell:
+  command:
     chdir: "{{ dspace_source }}"
     cmd: "mvn package"
+    creates: "{{ dspace_source }}/dspace/target/dspace-installer"
 
 - name: install DSpace using Ant
-  shell:
+  command:
     chdir: "{{ dspace_source }}/dspace/target/dspace-installer"
     cmd: "ant fresh_install"
+    creates: "{{ dspace_source }}/dspace/target/dspace-installer"
 
 - name: create the Tomcat servlet contexts for the DSpace web apps
   template:
@@ -72,3 +78,8 @@
 - name: create the DSpace admin. account
   shell:
     cmd: "{{ dspace_home }}/bin/dspace create-administrator -e admin@localhost -f Admin -l User -c en_US -p secret"
+  register: dspace_create_admin
+  changed_when:
+    - dspace_create_admin.rc == 0
+  failed_when:
+    - dspace_create_admin.rc == 1
