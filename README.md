@@ -15,11 +15,20 @@ configuration](https://github.com/jrgriffiniii/dspace-vagrant/blob/master/Vagran
 ### Provisioning the Vagrant Box locally
 
 #### Initializing the Python environment (for Ansible)
+
 ```bash
 pyenv local 3.7.7
 pip install pipenv
 pipenv shell
 pipenv sync
+```
+
+### Building the Docker Container
+
+```bash
+docker build -t jrgriffiniii/dspace-docker-base .
+docker run -it --name dspace --mount src="$(pwd)/ansible",target=/ansible,type=bind jrgriffiniii/dspace-docker-base
+docker exec -it dspace ansible-playbook /ansible/playbooks/docker.yml
 ```
 
 #### Building the Vagrant Box
