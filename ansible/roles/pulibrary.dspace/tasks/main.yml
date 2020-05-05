@@ -94,3 +94,4 @@
     - dspace_create_admin.rc == 0
   failed_when:
     - dspace_create_admin.rc == 1
+  ignore_errors: true
