@@ -3,7 +3,7 @@ jobs:
   test_roles:
     working_directory: ~/dspace-vagrant
     docker:
-      - image: quay.io/ansible/molecule:2.22rc3
+      - image: quay.io/ansible/molecule:3.0.4
     steps:
       - checkout
       - setup_remote_docker
