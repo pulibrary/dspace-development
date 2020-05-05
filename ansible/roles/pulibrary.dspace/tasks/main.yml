@@ -11,8 +11,17 @@
 - name: download dspace release
   unarchive:
     src: https://github.com/DSpace/DSpace/releases/download/dspace-{{ dspace_version }}/dspace-{{ dspace_version }}-release.zip
-    dest: "{{ dspace_source }}"
+    dest: "{{ source_directory }}"
     remote_src: true
+
+- name: create the dspace system group
+  user:
+    name: dspace
+
+- name: create the dspace system user
+  user:
+    name: dspace
+    group: dspace
 
 - name: create the dspace postgresql database
   postgresql_db:
@@ -24,6 +33,7 @@
 - name: create the dspace postgresql role
   postgresql_user:
     name: dspace
+    password: dspace
     db: dspace
     encrypted: true
     role_attr_flags: '{{ application_dbuser_role_attr_flags }}'
@@ -58,7 +68,7 @@
 
 - name: build the Maven package
   command:
-    chdir: "{{ dspace_source }}"
+    chdir: "{{ dspace_source }}/dspace"
     cmd: "mvn package"
     creates: "{{ dspace_source }}/dspace/target/dspace-installer"
 
