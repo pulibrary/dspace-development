@@ -39,19 +39,13 @@
     role_attr_flags: '{{ application_dbuser_role_attr_flags }}'
     state: 'present'
 
-- name: determine if pgcrypto is enabled for PostgreSQL
-  shell: set -o pipefail && psql -c "SELECT extname FROM pg_extension WHERE extname='pgcrypto';" dspace | grep pgcrypto
-  register: pgcrypto_result
-  changed_when:
-    - pgcrypto_result.rc == 0
-  failed_when:
-    - pgcrypto_result.rc == 1
-
 - name: enable the pgcrypto extension for PostgreSQL
   postgresql_query:
     db: dspace
     query: "CREATE EXTENSION pgcrypto;"
-  when: pgcrypto_result.rc == 1
+  register: pgcrypto_result
+  failed_when:
+    - pgcrypto_result.rc == 1
 
 - name: create the DSpace configuration file
   template:
