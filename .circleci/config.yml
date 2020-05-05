@@ -1,6 +1,6 @@
 version: 2.1
 jobs:
-  test_roles:
+  test_docker_build:
     working_directory: ~/dspace-vagrant
     docker:
       - image: quay.io/ansible/molecule:3.0.4
@@ -8,11 +8,35 @@ jobs:
       - checkout
       - setup_remote_docker
       - run:
-          name: Run molecule test for an Ansible role
+          name: Ensure that the Dockerfile builds
+          command: docker build -t jrgriffiniii/dspace-vagrant .
+  lint_ansible_roles:
+    working_directory: ~/dspace-vagrant
+    docker:
+      - image: quay.io/ansible/molecule:3.0.4
+    steps:
+      - checkout
+      - setup_remote_docker
+      - run:
+          name: Lint Ansible Roles and YAML configuration files
+          command: |
+            cd ansible
+            molecule lint
+  test_ansible_roles:
+    working_directory: ~/dspace-vagrant
+    docker:
+      - image: quay.io/ansible/molecule:3.0.4
+    steps:
+      - checkout
+      - setup_remote_docker
+      - run:
+          name: Run the Molecule tests for the Ansible Roles
           command: |
             cd ansible
             molecule test
 workflows:
   ci:
     jobs:
-      - test_roles
+      - test_docker_build
+      - lint_ansible_roles
+      - test_ansible_roles
