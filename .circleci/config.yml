@@ -1,0 +1,18 @@
+version: 2.1
+jobs:
+  test_roles:
+    working_directory: ~/dspace-vagrant
+    docker:
+      - image: quay.io/ansible/molecule:2.22rc3
+    steps:
+      - checkout
+      - setup_remote_docker
+      - run:
+          name: Run molecule test for an Ansible role
+          command: |
+            cd ansible 
+            molecule test
+workflows:
+  ci:
+    jobs:
+      - test_roles
