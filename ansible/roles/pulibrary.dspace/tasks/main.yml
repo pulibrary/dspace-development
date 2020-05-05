@@ -43,9 +43,6 @@
   postgresql_query:
     db: dspace
     query: "CREATE EXTENSION pgcrypto;"
-  register: pgcrypto_result
-  failed_when:
-    - pgcrypto_result.rc == 1
 
 - name: create the DSpace configuration file
   template:
@@ -87,6 +84,7 @@
     - rest
     - sword
     - swordv2
+  notify: restart tomcat
 
 - name: create the DSpace admin. account
   shell:
