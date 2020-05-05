@@ -1,0 +1,45 @@
+---
+scenario:
+  name: default
+  test_sequence:
+    - dependency
+    - cleanup
+    - destroy
+    - syntax
+    - create
+    - prepare
+    - converge
+    - side_effect
+    - verify
+    - cleanup
+    - destroy
+driver:
+  name: docker
+platforms:
+  - name: instance
+    image: jrgriffiniii/dspace-vagrant:latest
+    privileged: true
+    pre_build_image: true
+provisioner:
+  name: ansible
+  playbooks:
+    converge: playbook.yml
+  log: true
+dependency:
+  name: galaxy
+  enabled: false
+lint: |
+  set -e
+  yamllint -c molecule/default/yaml-lint.yml .
+  ansible-lint
+  flake8
+verifier:
+  name: testinfra
+  env:
+    PYTHONWARNINGS: "ignore:.*U.*mode is deprecated:DeprecationWarning"
+  lint:
+    name: flake8
+  options:
+    # show which tests where executed in test output
+    v: 1
+  directory: molecule/default/tests/
