@@ -10,6 +10,7 @@ ansible = "*"
 molecule = "*"
 ansible-lint = "*"
 flake8 = "*"
+docker = "*"
 
 [requires]
 python_version = "3.7"

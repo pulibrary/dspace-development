@@ -2,4 +2,4 @@
 - name: Converge
   hosts: all
   roles:
-    - role: pulibrary.dspace
+    - role: ../../roles/pulibrary.dspace
