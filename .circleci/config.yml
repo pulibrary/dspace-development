@@ -9,7 +9,7 @@ jobs:
       - setup_remote_docker
       - run:
           name: Build the local Docker image
-          command: docker build -t jrgriffiniii/docker-vagrant .
+          command: echo docker build -t jrgriffiniii/docker-vagrant .
       - run:
           name: Run molecule test for an Ansible role
           command: |

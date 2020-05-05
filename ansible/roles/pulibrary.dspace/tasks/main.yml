@@ -13,7 +13,6 @@
     src: https://github.com/DSpace/DSpace/releases/download/dspace-{{ dspace_version }}/dspace-{{ dspace_version }}-release.zip
     dest: "{{ dspace_source }}"
     remote_src: true
-    changed_when: false
 
 - name: create the dspace postgresql database
   postgresql_db:
@@ -42,7 +41,7 @@
   postgresql_query:
     db: dspace
     query: "CREATE EXTENSION pgcrypto;"
-    when: pgcrypto_result.rc == 1
+  when: pgcrypto_result.rc == 1
 
 - name: create the DSpace configuration file
   template:
