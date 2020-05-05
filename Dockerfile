@@ -7,8 +7,8 @@ LABEL repository="https://github.com/jrgriffiniii/dspace-vagrant"
 RUN set -ex; \
   apt-get update \
   && apt-get install -y --no-install-recommends \
-    acl ant apt-utils build-essential clamav libclamav-dev clamav-daemon curl git htop iproute2 \
-    libssl-dev net-tools openjdk-8-jdk-headless openssh-server python3-apt python3-setuptools python3-pip silversearcher-ag software-properties-common sudo systemd systemd-cron tomcat8 \
+    acl ant apt-utils build-essential clamav libclamav-dev clamav-daemon cron curl git htop iproute2 \
+    libssl-dev net-tools openjdk-8-jdk-headless openssh-server python3-apt python3-setuptools python3-pip silversearcher-ag software-properties-common sudo tomcat8 \
     tmux unzip vim wget zip zlib1g-dev \
   && rm -rf /var/lib/apt/lists/* \
   && rm -Rf /usr/share/doc \
