@@ -5,6 +5,22 @@
     update_cache: true
     state: present
 
+- name: copy tomcat 8 sysv init script
+  template:
+    src: tomcat8
+    dest: /etc/init.d/tomcat8
+    owner: tomcat8
+    group: tomcat8
+  when: not running_on_server
+
+- name: copy tomcat 8 env variable settings
+  template:
+    src: setenv.sh
+    dest: /usr/share/tomcat8/bin/setenv.sh
+    owner: tomcat8
+    group: tomcat8
+  when: not running_on_server
+
 - name: ensure tomcat8 starts on boot
   service:
     name: tomcat8

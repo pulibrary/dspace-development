@@ -28,7 +28,13 @@ pipenv sync
 ```bash
 docker build -t jrgriffiniii/dspace-docker-base .
 docker run -it --name dspace --mount src="$(pwd)/ansible",target=/ansible,type=bind -p 8888:8080 jrgriffiniii/dspace-docker-base
-docker exec -it dspace ansible-playbook -vvv -e 'ansible_python_interpreter=/usr/bin/python3' -l local /ansible/playbooks/docker.yml
+docker exec -it dspace ansible-playbook -vvv /ansible/playbooks/docker.yml
+```
+
+#### Clearing the cached images
+
+```bash
+docker rmi $(docker images -q)
 ```
 
 ### Updating the Docker Container
