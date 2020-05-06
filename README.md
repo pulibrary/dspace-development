@@ -31,6 +31,16 @@ docker run -it --name dspace --mount src="$(pwd)/ansible",target=/ansible,type=b
 docker exec -it dspace -e 'ansible_python_interpreter=/usr/bin/python3' ansible-playbook /ansible/playbooks/docker.yml
 ```
 
+### Updating the Docker Container
+
+```bash
+docker commit -a'James Griffin jrgriffiniii@gmail.com' -m'Adding the latest changes to the 1.0.1 release' dspace jrgriffiniii/dspace-docker:1.0.1
+docker tag jrgriffiniii/dspace-docker:1.0.1 jrgriffiniii/dspace-docker:latest
+docker push jrgriffiniii/dspace-docker:1.0.1
+docker push jrgriffiniii/dspace-docker:latest
+```
+
+
 #### Building the Vagrant Box
 ```bash
 vagrant up
