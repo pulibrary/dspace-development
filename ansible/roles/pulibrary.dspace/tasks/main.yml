@@ -78,6 +78,7 @@
     state: directory
     owner: tomcat8
     group: tomcat8
+    recurse: true
 
 - name: create the Tomcat servlet contexts for the DSpace web apps
   template:
