@@ -3,5 +3,8 @@
   become: true
   vars_files:
     - ../site_vars.yml
+  environment:
+    CATALINA_HOME: /var/lib/tomcat8
+    JAVA_HOME: /usr/lib/jvm/java-8-openjdk-amd64
   roles:
     - role: ../roles/pulibrary.dspace

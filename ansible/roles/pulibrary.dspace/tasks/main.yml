@@ -43,6 +43,7 @@
   postgresql_query:
     db: dspace
     query: "CREATE EXTENSION pgcrypto;"
+  ignore_errors: true
 
 - name: create the DSpace configuration file
   template:
@@ -54,8 +55,6 @@
     path: "{{ dspace_home }}"
     state: directory
     mode: '0755'
-    owner: dspace
-    group: dspace
 
 - name: build the Maven package
   command:
@@ -72,6 +71,13 @@
     - ant_install.rc == 0
   failed_when:
     - ant_install.rc == 1
+
+- name: create the DSpace home directory
+  file:
+    path: "{{ dspace_home }}"
+    state: directory
+    owner: tomcat8
+    group: tomcat8
 
 - name: create the Tomcat servlet contexts for the DSpace web apps
   template:

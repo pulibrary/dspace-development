@@ -28,7 +28,7 @@ pipenv sync
 ```bash
 docker build -t jrgriffiniii/dspace-docker-base .
 docker run -it --name dspace --mount src="$(pwd)/ansible",target=/ansible,type=bind jrgriffiniii/dspace-docker-base
-docker exec -it dspace ansible-playbook /ansible/playbooks/docker.yml
+docker exec -it dspace -e 'ansible_python_interpreter=/usr/bin/python3' ansible-playbook /ansible/playbooks/docker.yml
 ```
 
 #### Building the Vagrant Box
