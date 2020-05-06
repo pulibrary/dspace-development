@@ -12,5 +12,3 @@
     enabled: true
   changed_when: false
   ignore_errors: true
-  tags:
-    - server

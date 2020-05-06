@@ -4,6 +4,3 @@
   service:
     name: tomcat8
     state: restarted
-  become: true
-  tags:
-    - server
