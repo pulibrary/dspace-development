@@ -2,7 +2,13 @@
 
 ## Getting started
 
-### Building the Vagrant Box from the HashiCorp:
+### Building the Docker Container:
+
+```bash
+docker run -it --name dspace -p 8888:8080 jrgriffiniii/dspace-docker
+```
+
+### Building the Vagrant Box from the Vagrant Cloud:
 
 ```bash
 vagrant init jrgriffiniii/dspace-vagrant
