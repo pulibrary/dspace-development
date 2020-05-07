@@ -29,12 +29,22 @@ pipenv shell
 pipenv sync
 ```
 
-### Building the Docker Container
+### Building the Docker Container locally
 
 ```bash
 docker build -t jrgriffiniii/dspace-docker-base .
-docker run -it --name dspace --mount src="$(pwd)/ansible",target=/ansible,type=bind -p 8888:8080 jrgriffiniii/dspace-docker-base
-docker exec -it dspace ansible-playbook -vvv /ansible/playbooks/docker.yml
+./scripts/docker_provision.sh
+```
+
+### Provisioning from a local environment
+
+```bash
+docker build -t jrgriffiniii/dspace-docker-base .
+cd docker/usr/local/src
+wget "https://github.com/DSpace/DSpace/releases/download/dspace-5.3/dspace-5.3-src-release.zip"
+unzip dspace-5.3-src-release.zip
+cd -
+./scripts/docker_provision_local_storage.sh
 ```
 
 #### Clearing the cached images
@@ -52,8 +62,8 @@ docker push jrgriffiniii/dspace-docker:1.0.1
 docker push jrgriffiniii/dspace-docker:latest
 ```
 
-
 #### Building the Vagrant Box
+
 ```bash
 vagrant up
 ```

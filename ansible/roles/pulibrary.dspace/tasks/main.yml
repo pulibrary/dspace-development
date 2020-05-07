@@ -6,7 +6,6 @@
   file:
     path: "{{ dspace_source }}"
     state: directory
-    mode: "0755"
 
 - name: download dspace release
   unarchive:

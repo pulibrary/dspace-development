@@ -1,3 +1,13 @@
 *log
 .vagrant
 *box
+
+docker/dspace/bin/
+docker/dspace/config/
+docker/dspace/etc/
+docker/dspace/lib/
+docker/dspace/solr/
+docker/dspace/webapps/
+docker/usr/local/src/dspace-*-src-release.zip
+docker/usr/local/src/dspace-*-src-release/
+docker/usr/local/src/dspace-*-release/
