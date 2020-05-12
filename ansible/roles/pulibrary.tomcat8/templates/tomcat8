@@ -175,9 +175,6 @@ catalina_sh() {
 		-c "$TOMCAT8_USER" -d "$CATALINA_TMPDIR" -p "$CATALINA_PID" \
 		-x /bin/bash -- -c "$AUTHBIND_COMMAND $TOMCAT_SH"
 	status="$?"
-	log_success_msg "TRACE"
-	log_success_msg "$CATALINA_PID"
-	log_success_msg "$status"
 	set +a -e
 	return $status
 }
