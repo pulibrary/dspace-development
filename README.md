@@ -1,24 +1,6 @@
-# DSpace for Vagrant
+# DSpace for Docker and Vagrant
 
 ## Getting started
-
-### Building the Docker Container:
-
-```bash
-docker run -it --name dspace -p 8888:8080 jrgriffiniii/dspace-docker
-```
-
-### Building the Vagrant Box from the Vagrant Cloud:
-
-```bash
-vagrant init jrgriffiniii/dspace-vagrant
-vagrant up
-```
-
-One will want to please review the [Vagrantfile
-configuration](https://github.com/jrgriffiniii/dspace-vagrant/blob/master/Vagrantfile).
-
-### Provisioning the Vagrant Box locally
 
 #### Initializing the Python environment (for Ansible)
 
@@ -29,10 +11,17 @@ pipenv shell
 pipenv sync
 ```
 
+### Building the Docker Container from Docker Hub:
+
+```bash
+docker run -it --name dspace -p 8888:8080 jrgriffiniii/dspace-docker
+```
+
 ### Building the Docker Container locally
 
 ```bash
 docker build -t jrgriffiniii/dspace-docker-base .
+
 source ./scripts/docker_run.sh
 source ./scripts/docker_provision.sh
 ```
@@ -41,10 +30,12 @@ source ./scripts/docker_provision.sh
 
 ```bash
 cd docker/usr/local/src
-wget "https://github.com/DSpace/DSpace/releases/download/dspace-5.3/dspace-5.3-src-release.zip"
-unzip dspace-5.3-src-release.zip
+wget "https://github.com/DSpace/DSpace/releases/download/dspace-5.3/dspace-5.3-release.zip"
+unzip dspace-5.3-release.zip
 cd -
+
 docker build -t jrgriffiniii/dspace-docker-base .
+
 source ./scripts/docker_run_local_storage.sh
 source ./scripts/docker_provision.sh
 ```
@@ -64,10 +55,20 @@ docker push jrgriffiniii/dspace-docker:1.0.1
 docker push jrgriffiniii/dspace-docker:latest
 ```
 
-#### Building the Vagrant Box
+### Building the Vagrant Box from the Vagrant Cloud:
 
 ```bash
+vagrant init jrgriffiniii/dspace-vagrant
 vagrant up
+```
+
+One will want to please review the [Vagrantfile
+configuration](https://github.com/jrgriffiniii/dspace-vagrant/blob/master/Vagrantfile).
+
+### Provisioning the Vagrant Box locally
+
+```bash
+vagrant provision
 ```
 
 ## Accessing DSpace
