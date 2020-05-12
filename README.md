@@ -33,24 +33,26 @@ pipenv sync
 
 ```bash
 docker build -t jrgriffiniii/dspace-docker-base .
-./scripts/docker_provision.sh
+source ./scripts/docker_run.sh
+source ./scripts/docker_provision.sh
 ```
 
 ### Provisioning from a local environment
 
 ```bash
-docker build -t jrgriffiniii/dspace-docker-base .
 cd docker/usr/local/src
 wget "https://github.com/DSpace/DSpace/releases/download/dspace-5.3/dspace-5.3-src-release.zip"
 unzip dspace-5.3-src-release.zip
 cd -
-./scripts/docker_provision_local_storage.sh
+docker build -t jrgriffiniii/dspace-docker-base .
+source ./scripts/docker_run_local_storage.sh
+source ./scripts/docker_provision.sh
 ```
 
-#### Clearing the cached images
+#### Clearing the cached image
 
 ```bash
-docker rmi $(docker images -q)
+docker rmi jrgriffiniii/dspace-docker-base
 ```
 
 ### Updating the Docker Container

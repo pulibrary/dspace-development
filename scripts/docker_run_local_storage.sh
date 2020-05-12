@@ -1,6 +1,5 @@
 #!/bin/bash
 
-docker build -t jrgriffiniii/dspace-docker-base .
 docker run \
   -it \
   --name dspace \
@@ -9,4 +8,3 @@ docker run \
   --mount src="$(pwd)/docker/dspace",target=/dspace,type=bind \
   -p 8888:8080 \
   jrgriffiniii/dspace-docker-base
-docker exec -it dspace ansible-playbook -vvv /ansible/playbooks/docker.yml
