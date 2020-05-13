@@ -21,7 +21,17 @@
     group: tomcat8
   when: not running_on_server
 
-- name: ensure tomcat8 starts on boot
+- name: ensure that tomcat8 is started on runlevels 3, 4, and 5
+  sysvinit:
+    name: tomcat8
+    state: started
+    enabled: yes
+    runlevels:
+      - 3
+      - 4
+      - 5
+
+- name: ensure that tomcat8 is started
   service:
     name: tomcat8
     state: started

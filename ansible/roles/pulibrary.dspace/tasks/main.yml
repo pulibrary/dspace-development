@@ -60,6 +60,7 @@
     chdir: "{{ dspace_source }}/dspace"
     cmd: "mvn package"
     creates: "{{ dspace_source }}/dspace/target/dspace-installer"
+  when: install_dspace
 
 - name: install DSpace using Ant
   command:
@@ -70,6 +71,7 @@
     - ant_install.rc == 0
   failed_when:
     - ant_install.rc == 1
+  when: install_dspace
 
 - name: create the DSpace home directory
   file:

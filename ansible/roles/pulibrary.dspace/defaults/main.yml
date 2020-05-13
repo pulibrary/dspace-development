@@ -15,3 +15,4 @@ source_directory: /usr/local/src
 dspace_source: "{{ source_directory }}/dspace-{{ dspace_version }}-release"
 dspace_home: /dspace
 application_dbuser_role_attr_flags: ''
+install_dspace: true

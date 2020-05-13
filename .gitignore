@@ -2,12 +2,8 @@
 .vagrant
 *box
 
-docker/dspace/bin/
-docker/dspace/config/
-docker/dspace/etc/
-docker/dspace/lib/
-docker/dspace/solr/
-docker/dspace/webapps/
-docker/usr/local/src/dspace-*-src-release.zip
-docker/usr/local/src/dspace-*-src-release/
+docker/dspace/*
+docker/dspace.zip
+docker/usr/local/src/dspace-*-build.zip
+docker/usr/local/src/dspace-*-release.zip
 docker/usr/local/src/dspace-*-release/
