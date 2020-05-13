@@ -1,0 +1,13 @@
+---
+- hosts: all
+  become: true
+  vars_files:
+    - ../site_vars.yml
+  vars:
+    - running_on_server: false
+    - ansible_python_interpreter: /usr/bin/python3
+  environment:
+    CATALINA_HOME: /usr/share/tomcat8
+    JAVA_HOME: /usr/lib/jvm/java-8-openjdk-amd64
+  roles:
+    - role: ../roles/pulibrary.dspace

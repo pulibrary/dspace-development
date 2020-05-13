@@ -5,11 +5,21 @@
     update_cache: true
     state: present
 
-- name: copy tomcat 8 config file
+- name: copy tomcat 8 sysv init script
   template:
-    src: server.xml.j2
-    dest: /etc/tomcat8/server.xml
-    mode: 0640
+    src: tomcat8
+    dest: /etc/init.d/tomcat8
+    owner: tomcat8
+    group: tomcat8
+  when: not running_on_server
+
+- name: copy tomcat 8 env variable settings
+  template:
+    src: setenv.sh
+    dest: /usr/share/tomcat8/bin/setenv.sh
+    owner: tomcat8
+    group: tomcat8
+  when: not running_on_server
 
 - name: ensure tomcat8 starts on boot
   service:
@@ -17,3 +27,4 @@
     state: started
     enabled: true
   changed_when: false
+  ignore_errors: true

@@ -9,7 +9,7 @@ jobs:
       - setup_remote_docker
       - run:
           name: Ensure that the Dockerfile builds
-          command: docker build -t jrgriffiniii/dspace-vagrant .
+          command: docker build -t jrgriffiniii/dspace-docker-base .
   lint_ansible_roles:
     working_directory: ~/dspace-vagrant
     docker:
