@@ -71,7 +71,6 @@
     - ant_install.rc == 0
   failed_when:
     - ant_install.rc == 1
-  when: install_dspace
 
 - name: create the DSpace home directory
   file:
@@ -103,3 +102,4 @@
   failed_when:
     - dspace_create_admin.rc == 1
   ignore_errors: true
+  when: install_dspace

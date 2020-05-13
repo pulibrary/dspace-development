@@ -14,6 +14,11 @@ methods:
 cd docker/usr/local/src
 unzip dspace-5.3-release.zip
 cd -
+# If you wish to use Maven to build the packages
+cd docker/usr/local/src/dspace-5.3-release
+mvn dependency:go-offline
+mvn package
+cd -
 
 cd docker/
 unzip dspace.zip
@@ -32,6 +37,7 @@ Then please run the following in a second terminal to provision the Container:
 
 ```
 docker cp "$(pwd)/docker/dspace" dspace:/dspace
+docker cp "$(pwd)/docker/usr/local/src/dspace-5.3-release" dspace:/usr/local/src/dspace-5.3-release
 source ./scripts/docker_provision_local_storage.sh
 ```
 
