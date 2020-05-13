@@ -82,6 +82,21 @@ pipenv shell
 pipenv sync
 ```
 
+### Developing locally
+
+Please use the following in order to actively develop the mvn code base:
+```
+cd docker/usr/local/src/dspace-5.3-release
+```
+
+When this is ready for deployment, please use the following to repackage the build and deploy the webapps in the container:
+```
+mvn package
+docker exec -it --workdir /usr/local/src/dspace-5.3-release/dspace/target/dspace-installer dspace ant update_webapps
+docker exec -it dspace service tomcat8 stop
+docker exec -it dspace service tomcat8 start
+```
+
 ### Docker Image Management
 
 #### Clearing the cached image
