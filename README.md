@@ -1,26 +1,80 @@
-# DSpace for Vagrant
+# DSpace for Docker and Vagrant
 
-## Getting started
+## Getting started with Docker
 
-### Building the Docker Container:
+There are a number of options for building the Docker Container and provisioning
+the environment. These are ordered with preference for the most expedient
+methods:
 
+### Provisioning with a local DSpace build
+*Please note that this is the method which is easiest to use for locally
+developing and extending DSpace installations run in the container.*
+
+#### Download the release
 ```bash
-docker run -it --name dspace -p 8888:8080 jrgriffiniii/dspace-docker
+cd docker/usr/local/src
+wget "https://github.com/DSpace/DSpace/releases/download/dspace-5.3/dspace-5.3-src-release.zip"
+unzip dspace-5.3-src-release.zip
+cd -
 ```
 
-### Building the Vagrant Box from the Vagrant Cloud:
-
-```bash
-vagrant init jrgriffiniii/dspace-vagrant
-vagrant up
+#### Build the release
+```
+cd docker/usr/local/src/dspace-5.3-src-release/dspace
+mvn dependency:go-offline
+mvn package
+cd -
 ```
 
-One will want to please review the [Vagrantfile
-configuration](https://github.com/jrgriffiniii/dspace-vagrant/blob/master/Vagrantfile).
+#### Run the Container
+In one terminal, please run the following, as this will start the DSpace Container:
+
+```
+# This is only necessary if you haven't already built the base image
+docker build -t jrgriffiniii/dspace-docker-base .
+source ./scripts/docker_run_local_storage.sh
+```
+
+Then please run the following in a separate terminal to provision the Container:
+
+#### Provision the Container
+```
+source ./scripts/docker_provision_local_storage.sh
+```
+
+### Provisioning using new DSpace installations
+
+In one terminal, please run the following, as this will start the DSpace Container:
+
+```
+# This is only necessary if you haven't already built the base image
+docker build -t jrgriffiniii/dspace-docker-base .
+source ./scripts/docker_run.sh
+```
+
+Then please run the following in a second terminal to provision the Container:
+
+```
+source ./scripts/docker_provision.sh
+```
+
+## Getting started with Vagrant
 
 ### Provisioning the Vagrant Box locally
 
-#### Initializing the Python environment (for Ansible)
+```bash
+vagrant up
+vagrant provision
+```
+
+## Accessing DSpace
+
+One running, DSpace 5.3 should accessible at [http://localhost:8888/jspui/](http://localhost:8888/jspui/). The
+administrator account created for the installation is `admin@localhost` using the password `secret`.
+
+## Development
+
+### Initializing the Python environment (for Ansible)
 
 ```bash
 pyenv local 3.7.7
@@ -29,21 +83,36 @@ pipenv shell
 pipenv sync
 ```
 
-### Building the Docker Container
+### Developing locally for Docker
 
-```bash
-docker build -t jrgriffiniii/dspace-docker-base .
-docker run -it --name dspace --mount src="$(pwd)/ansible",target=/ansible,type=bind -p 8888:8080 jrgriffiniii/dspace-docker-base
-docker exec -it dspace ansible-playbook -vvv /ansible/playbooks/docker.yml
+Please use the following in order to actively develop the mvn code base:
+```
+cd docker/usr/local/src/dspace-5.3-src-release
 ```
 
-#### Clearing the cached images
-
-```bash
-docker rmi $(docker images -q)
+When this is ready for deployment, please use the following to repackage the build and deploy the webapps in the container:
+```
+mvn package
+cd -
+source ./scripts/docker_deploy_dspace.sh
 ```
 
-### Updating the Docker Container
+### Docker Container and Image Management
+
+#### Stopping and removing the DSpace container
+
+```bash
+docker stop dspace
+docker rm dspace
+```
+
+#### Clearing the cached image
+
+```bash
+docker rmi jrgriffiniii/dspace-docker-base
+```
+
+#### Updating the Docker Image for new releases on Docker Hub
 
 ```bash
 docker commit -a'James Griffin jrgriffiniii@gmail.com' -m'Adding the latest changes to the 1.0.1 release' dspace jrgriffiniii/dspace-docker:1.0.1
@@ -52,14 +121,3 @@ docker push jrgriffiniii/dspace-docker:1.0.1
 docker push jrgriffiniii/dspace-docker:latest
 ```
 
-
-#### Building the Vagrant Box
-```bash
-vagrant up
-```
-
-## Accessing DSpace
-
-One running, DSpace 6.3 should accessible at [http://localhost:8888/jspui/](http://localhost:8888/jspui/). The
-administrator account created for the installation is `admin@localhost` using
-the password `secret`.

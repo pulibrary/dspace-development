@@ -1,2 +1,11 @@
 JAVA_HOME=/usr/lib/jvm/java-8-openjdk-amd64
 JRE_HOME=/usr/lib/jvm/java-8-openjdk-amd64/jre
+CATALINA_OPTS="$CATALINA_OPTS -Djava.security.egd=file:/dev/./urandom"
+CATALINA_OPTS="$CATALINA_OPTS -Xms4g"
+CATALINA_OPTS="$CATALINA_OPTS -Xmx6g"
+CATALINA_OPTS="$CATALINA_OPTS -XX:PermSize=1g"
+CATALINA_OPTS="$CATALINA_OPTS -XX:MaxPermSize=6g"
+CATALINA_OPTS="$CATALINA_OPTS -XX:NewSize=1g"
+CATALINA_OPTS="$CATALINA_OPTS -XX:MaxNewSize=6g"
+CATALINA_OPTS="$CATALINA_OPTS -XX:MaxMetaspaceSize=6g"
+CATALINA_OPTS="$CATALINA_OPTS -XX:+DisableExplicitGC"

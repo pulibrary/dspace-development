@@ -6,11 +6,10 @@
   file:
     path: "{{ dspace_source }}"
     state: directory
-    mode: "0755"
 
 - name: download dspace release
   unarchive:
-    src: https://github.com/DSpace/DSpace/releases/download/dspace-{{ dspace_version }}/dspace-{{ dspace_version }}-release.zip
+    src: https://github.com/DSpace/DSpace/releases/download/dspace-{{ dspace_version }}/dspace-{{ dspace_version }}-src-release.zip
     dest: "{{ source_directory }}"
     remote_src: true
 
@@ -61,6 +60,13 @@
     chdir: "{{ dspace_source }}/dspace"
     cmd: "mvn package"
     creates: "{{ dspace_source }}/dspace/target/dspace-installer"
+  when: install_dspace
+
+- name: ensure that tomcat8 is stopped
+  service:
+    name: tomcat8
+    state: stopped
+    enabled: true
 
 - name: install DSpace using Ant
   command:
@@ -91,7 +97,12 @@
     - rest
     - sword
     - swordv2
-  notify: restart tomcat
+
+- name: ensure that tomcat8 is started
+  service:
+    name: tomcat8
+    state: started
+    enabled: true
 
 - name: create the DSpace admin. account
   shell:
@@ -101,4 +112,3 @@
     - dspace_create_admin.rc == 0
   failed_when:
     - dspace_create_admin.rc == 1
-  ignore_errors: true
