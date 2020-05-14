@@ -9,7 +9,7 @@
 
 - name: download dspace release
   unarchive:
-    src: https://github.com/DSpace/DSpace/releases/download/dspace-{{ dspace_version }}/dspace-{{ dspace_version }}-release.zip
+    src: https://github.com/DSpace/DSpace/releases/download/dspace-{{ dspace_version }}/dspace-{{ dspace_version }}-src-release.zip
     dest: "{{ source_directory }}"
     remote_src: true
 

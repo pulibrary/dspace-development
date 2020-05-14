@@ -6,25 +6,27 @@ There are a number of options for building the Docker Container and provisioning
 the environment. These are ordered with preference for the most expedient
 methods:
 
-### Provisioning using pre-built DSpace installations
+### Provisioning with a local DSpace build
+*Please note that this is the method which is easiest to use for locally
+developing and extending DSpace installations run in the container.*
 
-**Please download the [pre-built DSpace source code](https://drive.google.com/file/d/1OiSHK0wBhxYP26h94qe68_JmXiOZFXE-/view?usp=sharing) and the [pre-configured build](https://drive.google.com/file/d/1o2lQ54b_YrzqMaVenGMoSK99if06oX0l/view?usp=sharing) first.**
-
+#### Download the release
 ```bash
 cd docker/usr/local/src
-unzip dspace-5.3-release.zip
-cd -
-# If you wish to use Maven to build the packages
-cd docker/usr/local/src/dspace-5.3-release
-mvn dependency:go-offline
-mvn package
-cd -
-
-cd docker/
-unzip dspace.zip
+wget "https://github.com/DSpace/DSpace/releases/download/dspace-5.3/dspace-5.3-src-release.zip"
+unzip dspace-5.3-src-release.zip
 cd -
 ```
 
+#### Build the release
+```
+cd docker/usr/local/src/dspace-5.3-src-release/dspace
+mvn dependency:go-offline
+mvn package
+cd -
+```
+
+#### Run the Container
 In one terminal, please run the following, as this will start the DSpace Container:
 
 ```
@@ -33,11 +35,10 @@ docker build -t jrgriffiniii/dspace-docker-base .
 source ./scripts/docker_run_local_storage.sh
 ```
 
-Then please run the following in a second terminal to provision the Container:
+Then please run the following in a separate terminal to provision the Container:
 
+#### Provision the Container
 ```
-docker cp "$(pwd)/docker/dspace" dspace:/dspace
-docker cp "$(pwd)/docker/usr/local/src/dspace-5.3-release" dspace:/usr/local/src/dspace-5.3-release
 source ./scripts/docker_provision_local_storage.sh
 ```
 
@@ -82,22 +83,28 @@ pipenv shell
 pipenv sync
 ```
 
-### Developing locally
+### Developing locally for Docker
 
 Please use the following in order to actively develop the mvn code base:
 ```
-cd docker/usr/local/src/dspace-5.3-release
+cd docker/usr/local/src/dspace-5.3-src-release
 ```
 
 When this is ready for deployment, please use the following to repackage the build and deploy the webapps in the container:
 ```
 mvn package
-docker exec -it --workdir /usr/local/src/dspace-5.3-release/dspace/target/dspace-installer dspace ant update_webapps
-docker exec -it dspace service tomcat8 stop
-docker exec -it dspace service tomcat8 start
+cd -
+source ./scripts/docker_deploy_dspace.sh
 ```
 
-### Docker Image Management
+### Docker Container and Image Management
+
+#### Stopping and removing the DSpace container
+
+```bash
+docker stop dspace
+docker rm dspace
+```
 
 #### Clearing the cached image
 

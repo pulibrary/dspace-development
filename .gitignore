@@ -3,7 +3,5 @@
 *box
 
 docker/dspace/*
-docker/dspace.zip
-docker/usr/local/src/dspace-*-build.zip
 docker/usr/local/src/dspace-*-release.zip
 docker/usr/local/src/dspace-*-release/
