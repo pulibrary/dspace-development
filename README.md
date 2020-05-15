@@ -31,7 +31,7 @@ In one terminal, please run the following, as this will start the DSpace Contain
 
 ```
 # This is only necessary if you haven't already built the base image
-docker build -t jrgriffiniii/dspace-docker-base .
+docker build -t pulibrary/dspace-development-base .
 source ./scripts/docker_run_local_storage.sh
 ```
 
@@ -48,7 +48,7 @@ In one terminal, please run the following, as this will start the DSpace Contain
 
 ```
 # This is only necessary if you haven't already built the base image
-docker build -t jrgriffiniii/dspace-docker-base .
+docker build -t pulibrary/dspace-development-base .
 source ./scripts/docker_run.sh
 ```
 
@@ -62,6 +62,15 @@ source ./scripts/docker_provision.sh
 
 ### Provisioning the Vagrant Box locally
 
+#### Initializing the Python environment (for Ansible)
+
+```bash
+pyenv local 3.7.7
+pip install pipenv
+pipenv shell
+pipenv sync
+```
+
 ```bash
 vagrant up
 vagrant provision
@@ -73,15 +82,6 @@ One running, DSpace 5.3 should accessible at [http://localhost:8888/jspui/](http
 administrator account created for the installation is `admin@localhost` using the password `secret`.
 
 ## Development
-
-### Initializing the Python environment (for Ansible)
-
-```bash
-pyenv local 3.7.7
-pip install pipenv
-pipenv shell
-pipenv sync
-```
 
 ### Developing locally for Docker
 
@@ -109,15 +109,22 @@ docker rm dspace
 #### Clearing the cached image
 
 ```bash
-docker rmi jrgriffiniii/dspace-docker-base
+docker rmi pulibrary/dspace-docker-base
 ```
 
 #### Updating the Docker Image for new releases on Docker Hub
 
 ```bash
-docker commit -a'James Griffin jrgriffiniii@gmail.com' -m'Adding the latest changes to the 1.0.1 release' dspace jrgriffiniii/dspace-docker:1.0.1
-docker tag jrgriffiniii/dspace-docker:1.0.1 jrgriffiniii/dspace-docker:latest
-docker push jrgriffiniii/dspace-docker:1.0.1
-docker push jrgriffiniii/dspace-docker:latest
+docker commit -a'PULSys User pulsys@princeton.edu' -m'Adding the latest changes to the 1.0.1 release' dspace pulibrary/dspace-development:1.0.1
+docker tag pulibrary/dspace-development:1.0.1 pulibrary/dspace-development:latest
+docker push pulibrary/dspace-development:1.0.1
+docker push pulibrary/dspace-development:latest
 ```
 
+#### Packaging the Vagrant Box
+
+```
+vagrant package --output dspace-development.box --include ubuntu-bionic-18.04-cloudimg-console.log --vagrantfile Vagrantfile
+```
+
+One may then upload a new release of the Box to [Vagrant Cloud](https://app.vagrantup.com/pulibrary).
