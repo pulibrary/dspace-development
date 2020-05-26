@@ -97,6 +97,29 @@ cd -
 source ./scripts/docker_deploy_dspace.sh
 ```
 
+#### Building with local DSpace modules
+
+Please `cd` to the directory used for the source code:
+
+```
+cd docker/usr/local/src/dspace-5.3-src-release
+```
+
+Here, one should then `git clone` the modules which they wish to include in the DSpace build:
+
+```
+git clone https://github.com/pulibrary/dspace-extension-modules.git
+```
+
+At this point one should then only need to rebuild the source code base:
+```
+cd dspace-extension-modules
+mvn package
+cd ..
+mvn package
+source ./scripts/docker_deploy_dspace.sh
+```
+
 ### Docker Container and Image Management
 
 #### Stopping and removing the DSpace container
