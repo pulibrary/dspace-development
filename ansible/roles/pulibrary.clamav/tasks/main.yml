@@ -14,5 +14,6 @@
   command: /usr/bin/freshclam --quiet
   args:
     creates: /var/lib/clamav/main.cvd
+  when: running_on_server
   changed_when: false
   ignore_errors: true
