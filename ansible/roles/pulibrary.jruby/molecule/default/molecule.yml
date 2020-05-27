@@ -5,7 +5,7 @@ driver:
   name: docker
 platforms:
   - name: instance
-    image: "pulibrary/puldocker-${MOLECULE_DISTRO:-ubuntu1804}-ansible:latest"
+    image: jrgriffiniii/dspace-docker-base
     privileged: true
     pre_build_image: true
 provisioner:
