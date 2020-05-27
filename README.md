@@ -121,3 +121,25 @@ docker push jrgriffiniii/dspace-docker:1.0.1
 docker push jrgriffiniii/dspace-docker:latest
 ```
 
+### Developing for JRuby
+
+Please `git clone` the JRuby project into the following directory:
+```
+cd docker/usr/local/src/
+git clone https://github.com/pulibrary/dspace-jruby.git
+```
+
+Then, please access the `bash` shell in the container as the user `pulsys`:
+
+```
+docker exec -it --user=pulsys dspace bash -l
+```
+
+This will permit one to install the Gems and execute Ruby tasks:
+
+```
+pulsys@1ee4c7a8cfb3:/$ cd /usr/local/src/dspace-jruby
+pulsys@1ee4c7a8cfb3:/usr/local/src/dspace-jruby$ bundle install --path vendor/bundle
+pulsys@1ee4c7a8cfb3:/usr/local/src/dspace-jruby$ bundle exec yardoc
+```
+

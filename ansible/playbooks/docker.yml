@@ -10,4 +10,5 @@
     CATALINA_HOME: /usr/share/tomcat8
     JAVA_HOME: /usr/lib/jvm/java-8-openjdk-amd64
   roles:
+    - role: ../roles/pulibrary.jruby
     - role: ../roles/pulibrary.dspace

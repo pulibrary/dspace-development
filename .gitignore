@@ -5,3 +5,5 @@
 docker/dspace/*
 docker/usr/local/src/dspace-*-release.zip
 docker/usr/local/src/dspace-*-release/
+docker/usr/local/src/dspace-jruby/
+!docker/usr/local/src/dspace-jruby/.keep
