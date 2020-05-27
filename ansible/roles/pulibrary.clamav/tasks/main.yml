@@ -15,3 +15,4 @@
   args:
     creates: /var/lib/clamav/main.cvd
   changed_when: false
+  ignore_errors: true
