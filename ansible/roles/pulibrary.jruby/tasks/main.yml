@@ -10,7 +10,7 @@
     shell: /bin/bash
     groups:
       - sudo
-    append: yes
+    append: true
 
 - name: set the ownership for the dspace-jruby directory
   file:
@@ -24,32 +24,37 @@
   unarchive:
     src: https://repo1.maven.org/maven2/org/jruby/jruby-dist/9.1.17.0/jruby-dist-9.1.17.0-bin.tar.gz
     dest: /
-    remote_src: yes
+    remote_src: true
 
 - name: link to jruby
-  file:
-    src: /jruby-9.1.17.0/bin/jruby
-    dest: /usr/local/bin/jruby
-    state: link
-
-- name: link to gem
   file:
     src: "/jruby-9.1.17.0/bin/{{ item }}"
     dest: "/usr/local/bin/{{ item }}"
     state: link
   loop:
-    - gem
+    - jruby
+    - jirb_swing
+    - jirb
+    - irb
     - jgem
+    - gem
+    - rake
+    - rdoc
+    - ri
+    - testrb
 
 - name: install Bundler
   shell:
     cmd: |
       gem install -v 1.16.1 bundler
     executable: /bin/bash
+    creates: /jruby-9.1.17.0/bin/bundler
 
 - name: link to bundler
   file:
-    src: "/jruby-9.1.17.0/bin/bundle"
-    dest: /usr/local/bin/bundle
+    src: "/jruby-9.1.17.0/bin/{{ item }}"
+    dest: "/usr/local/bin/{{ item }}"
     state: link
-
+  loop:
+    - bundler
+    - bundle

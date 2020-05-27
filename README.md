@@ -83,6 +83,22 @@ pipenv shell
 pipenv sync
 ```
 
+**Note: In order to deactivate the pipenv `shell`, one must use `exit` (not `deactivate`)**
+
+#### Linting Ansible Roles
+
+```
+cd ansible
+pipenv run molecule lint
+```
+
+#### Testing Ansible Roles
+
+```
+cd ansible
+pipenv run molecule
+```
+
 ### Developing locally for Docker
 
 Please use the following in order to actively develop the mvn code base:
