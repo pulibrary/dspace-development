@@ -12,8 +12,6 @@ RUN set -ex; \
     tmux unzip vim wget zip zlib1g-dev \
   && apt-get remove -y openjdk-11-jre-headless openjdk-11-jdk-headless \
   && rm -rf /var/lib/apt/lists/* \
-  && rm -Rf /usr/share/doc \
-  && rm -Rf /usr/share/man \
   && apt-get clean
 
 # Install Ansible via Pip.

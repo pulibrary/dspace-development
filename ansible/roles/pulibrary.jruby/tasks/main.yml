@@ -14,52 +14,42 @@
 
 - name: set the ownership for the dspace-jruby directory
   file:
-    path: "/usr/local/src/dspace-jruby"
+    path: "/usr/local/src/jruby-projects"
     state: directory
     owner: pulsys
     group: pulsys
     recurse: true
 
-- name: Add a GPG key by id from a keyserver
-  shell:
-    cmd: |
-      curl -sSL https://rvm.io/mpapis.asc | gpg --import -
-      curl -sSL https://rvm.io/pkuczynski.asc | gpg --import -
-    executable: /bin/bash
-  become: yes
-  become_user: pulsys
+- name: download JRuby
+  unarchive:
+    src: https://repo1.maven.org/maven2/org/jruby/jruby-dist/9.1.17.0/jruby-dist-9.1.17.0-bin.tar.gz
+    dest: /
+    remote_src: yes
 
-- name: install the RVM
-  shell:
-    cmd: |
-      curl -L get.rvm.io | bash -s stable
-    executable: /bin/bash
-    # creates: /usr/local/rvm
-    creates: /home/pulsys/.rvm/scripts/rvm
-    ignore_errors: yes
-  become: yes
-  become_user: pulsys
+- name: link to jruby
+  file:
+    src: /jruby-9.1.17.0/bin/jruby
+    dest: /usr/local/bin/jruby
+    state: link
 
-- name: install JRuby 9.1.7.0
-  shell:
-    cmd: |
-      source ~/.rvm/scripts/rvm
-      # source /usr/local/rvm/scripts/rvm
-      rvm install jruby-9.1.7.0
-      # echo . /usr/local/rvm/scripts/rvm >> ~/.bashrc
-      echo . ~/.rvm/scripts/rvm >> ~/.bashrc
-      rvm alias create default jruby-9.1.7.0
-    executable: /bin/bash
-    # creates: /usr/local/rvm/environments/jruby-9.1.7.0
-    creates: /home/pulsys/.rvm/environments/jruby-9.1.7.0
-  become: yes
-  become_user: pulsys
+- name: link to gem
+  file:
+    src: "/jruby-9.1.17.0/bin/{{ item }}"
+    dest: "/usr/local/bin/{{ item }}"
+    state: link
+  loop:
+    - gem
+    - jgem
 
 - name: install Bundler
   shell:
     cmd: |
-      gem install -v 1.10.6 bundler
+      gem install -v 1.16.1 bundler
     executable: /bin/bash
-  become: yes
-  become_user: pulsys
+
+- name: link to bundler
+  file:
+    src: "/jruby-9.1.17.0/bin/bundle"
+    dest: /usr/local/bin/bundle
+    state: link
 
