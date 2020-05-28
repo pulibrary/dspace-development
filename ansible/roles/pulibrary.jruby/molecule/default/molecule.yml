@@ -5,7 +5,7 @@ driver:
   name: docker
 platforms:
   - name: instance
-    image: jrgriffiniii/dspace-docker-base
+    image: pulibrary/dspace-docker-base
     privileged: true
     pre_build_image: true
 provisioner:

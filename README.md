@@ -1,5 +1,19 @@
 # DSpace for Docker and Vagrant
 
+## Prerequisites
+
+### Homebrew (macOS)
+
+Please install [Homebrew](https://brew.sh/), and then please install the following:
+
+```
+brew install maven
+```
+
+### Docker (macOS)
+
+Please download and install [Install Docker Desktop on Mac](https://docs.docker.com/docker-for-mac/install/).
+
 ## Getting started with Docker
 
 There are a number of options for building the Docker Container and provisioning
@@ -31,7 +45,7 @@ In one terminal, please run the following, as this will start the DSpace Contain
 
 ```
 # This is only necessary if you haven't already built the base image
-docker build -t jrgriffiniii/dspace-docker-base .
+docker build -t pulibrary/dspace-docker-base .
 source ./scripts/docker_run_local_storage.sh
 ```
 
@@ -42,13 +56,19 @@ Then please run the following in a separate terminal to provision the Container:
 source ./scripts/docker_provision_local_storage.sh
 ```
 
+Should one wish to start the provisioning from a specific Ansible task, the following can be used:
+
+```
+source ./scripts/docker_provision_local_storage.sh --start-at-task="my ansible task"
+```
+
 ### Provisioning using new DSpace installations
 
 In one terminal, please run the following, as this will start the DSpace Container:
 
 ```
 # This is only necessary if you haven't already built the base image
-docker build -t jrgriffiniii/dspace-docker-base .
+docker build -t pulibrary/dspace-docker-base .
 source ./scripts/docker_run.sh
 ```
 
@@ -115,6 +135,12 @@ source ./scripts/docker_deploy_dspace.sh
 
 ### Docker Container and Image Management
 
+#### Starting the DSpace container after it has been stopped
+
+```bash
+docker restart dspace
+```
+
 #### Stopping and removing the DSpace container
 
 ```bash
@@ -125,16 +151,16 @@ docker rm dspace
 #### Clearing the cached image
 
 ```bash
-docker rmi jrgriffiniii/dspace-docker-base
+docker rmi pulibrary/dspace-docker-base
 ```
 
 #### Updating the Docker Image for new releases on Docker Hub
 
 ```bash
-docker commit -a'James Griffin jrgriffiniii@gmail.com' -m'Adding the latest changes to the 1.0.1 release' dspace jrgriffiniii/dspace-docker:1.0.1
-docker tag jrgriffiniii/dspace-docker:1.0.1 jrgriffiniii/dspace-docker:latest
-docker push jrgriffiniii/dspace-docker:1.0.1
-docker push jrgriffiniii/dspace-docker:latest
+docker commit -a'James Griffin user@email.com' -m'Adding the latest changes to the 1.0.1 release' dspace pulibrary/dspace-docker:1.0.1
+docker tag pulibrary/dspace-docker:1.0.1 pulibrary/dspace-docker:latest
+docker push pulibrary/dspace-docker:1.0.1
+docker push pulibrary/dspace-docker:latest
 ```
 
 ### Developing for JRuby
@@ -159,3 +185,27 @@ pulsys@1ee4c7a8cfb3:/usr/local/src/dspace-jruby$ bundle install --path vendor/bu
 pulsys@1ee4c7a8cfb3:/usr/local/src/dspace-jruby$ bundle exec yardoc
 ```
 
+#### Working with Interactive Ruby (IRB)
+
+```
+pulsys@1ee4c7a8cfb3:/usr/local/src/dspace-jruby$ irb -I /usr/local/src/jruby-projects/dspace-jruby/lib
+```
+
+```ruby
+irb(main):001:0> require 'dspace'
+=> true
+irb(main):002:0> DSpace.load
+Using /dspace
+Loading jars
+Loading /dspace/config/dspace.cfg
+INFO: Loading provided config file: /dspace/config/dspace.cfg
+INFO: Using dspace provided log configuration (log.init.config)
+INFO: Loading: /dspace/config/log4j.properties
+Starting new DSpaceKernel
+DB jdbc:postgresql://localhost:5432/dspace, UserName=dspace, PostgreSQL Native Driver
+=> true
+irb(main):003:0> DSpace.login('admin@localhost')
+=> nil
+irb(main):004:0> person = DEPerson.find('admin@localhost')
+=> #<Java::OrgDspaceEperson::EPerson:0x6dca31eb>
+```

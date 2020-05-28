@@ -55,6 +55,14 @@
     state: directory
     mode: '0755'
 
+- name: recursively set the read permissions for the DSpace home directory
+  file:
+    path: "{{ dspace_home }}"
+    state: directory
+    recurse: true
+    mode: a+w
+  when: not running_on_server
+
 - name: build the Maven package
   command:
     chdir: "{{ dspace_source }}/dspace"

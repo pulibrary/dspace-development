@@ -54,6 +54,17 @@
   register: configure_postgres
   when: postgresql_is_local
 
+- name: ensure that postgresql is started on runlevels 3, 4, and 5
+  sysvinit:
+    name: postgresql
+    state: started
+    enabled: true
+    runlevels:
+      - 3
+      - 4
+      - 5
+  when: postgresql_is_local
+
 - name: ensure postgres starts on boot
   service:
     name: postgresql
