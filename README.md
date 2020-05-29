@@ -191,6 +191,12 @@ pulsys@1ee4c7a8cfb3:/usr/local/src/dspace-jruby$ bundle exec yardoc
 pulsys@1ee4c7a8cfb3:/usr/local/src/dspace-jruby$ irb -I /usr/local/src/jruby-projects/dspace-jruby/lib
 ```
 
+For convenience, the following aliases can be introduced:
+```
+alias irbd="irb -I /usr/local/src/jruby-projects/dspace-jruby/lib -I /usr/local/src/jruby-projects/dspace-cli"
+alias jrubyd="jruby -I /usr/local/src/jruby-projects/dspace-jruby/lib -I /usr/local/src/jruby-projects/dspace-cli"
+```
+
 ```ruby
 irb(main):001:0> require 'dspace'
 => true
