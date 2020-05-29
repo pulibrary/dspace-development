@@ -138,7 +138,7 @@ source ./scripts/docker_deploy_dspace.sh
 #### Starting the DSpace container after it has been stopped
 
 ```bash
-docker restart dspace
+source ./scripts/docker_restart.sh
 ```
 
 #### Stopping and removing the DSpace container
@@ -174,7 +174,7 @@ git clone https://github.com/pulibrary/dspace-jruby.git
 Then, please access the `bash` shell in the container as the user `pulsys`:
 
 ```
-docker exec -it --user=pulsys dspace bash -l
+source ./scripts/docker_shell.sh
 ```
 
 This will permit one to install the Gems and execute Ruby tasks:
