@@ -1,14 +1,27 @@
-# Molecule managed
+FROM phusion/baseimage:0.11
+ENV pip_packages "pipenv ansible pyopenssl"
 
-{% if item.registry is defined %}
-FROM {{ item.registry.url }}/{{ item.image }}
-{% else %}
-FROM {{ item.image }}
-{% endif %}
+LABEL maintainer="James Griffin \"jrgriffiniii@gmail.com\""
+LABEL repository="https://github.com/jrgriffiniii/dspace-vagrant"
 
-RUN if [ $(command -v apt-get) ]; then apt-get update && apt-get install -y python sudo bash ca-certificates iproute2 && apt-get clean; \
-    elif [ $(command -v dnf) ]; then dnf makecache && dnf --assumeyes install python sudo python-devel python2-dnf bash && dnf clean all; \
-    elif [ $(command -v yum) ]; then yum makecache fast && yum install -y python sudo yum-plugin-ovl bash && sed -i 's/plugins=0/plugins=1/g' /etc/yum.conf && yum clean all; \
-    elif [ $(command -v zypper) ]; then zypper refresh && zypper install -y python sudo bash python-xml && zypper clean -a; \
-    elif [ $(command -v apk) ]; then apk update && apk add --no-cache python sudo bash ca-certificates; \
-    elif [ $(command -v xbps-install) ]; then xbps-install -Syu && xbps-install -y python sudo bash ca-certificates && xbps-remove -O; fi
+RUN set -ex; \
+  apt-get update \
+  && apt-get install -y --no-install-recommends \
+    acl ant apt-utils build-essential clamav libclamav-dev clamav-daemon cron curl git htop iproute2 \
+    libssl-dev net-tools openjdk-8-jdk-headless openssh-server python3-apt python3-setuptools python3-pip silversearcher-ag software-properties-common sudo \
+    tmux unzip vim wget zip zlib1g-dev \
+  && apt-get remove -y openjdk-11-jre-headless openjdk-11-jdk-headless \
+  && rm -rf /var/lib/apt/lists/* \
+  && apt-get clean
+
+# Install Ansible via Pip.
+RUN pip3 install -U pip
+RUN pip3 install $pip_packages
+
+# Install Ansible inventory file.
+RUN mkdir -p /etc/ansible
+RUN echo "[local]\nlocalhost ansible_connection=local" > /etc/ansible/hosts
+
+VOLUME ["/sys/fs/cgroup", "/tmp", "/run"]
+
+CMD ["/sbin/my_init"]

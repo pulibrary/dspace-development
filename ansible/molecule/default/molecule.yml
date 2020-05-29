@@ -17,9 +17,10 @@ driver:
   name: docker
 platforms:
   - name: instance
-    image: pulibrary/dspace-docker-base
+    dockerfile: Dockerfile.j2
+    image: dspace-docker-base
     privileged: true
-    pre_build_image: true
+    pull: false
 provisioner:
   name: ansible
   playbooks:
