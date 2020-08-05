@@ -1,0 +1,3 @@
+#!/bin/bash
+export DSPACE_JRUBY_HOME = "$HOME/src/dspace-jruby"
+/usr/bin/env jruby -I "$DSPACE_HOME/lib" $*

@@ -1,0 +1,4 @@
+#!/bin/bash
+
+ssh -J $DSPACE_USER@$BASTION_HOST $DSPACE_USER@$DSPACE_HOST
+

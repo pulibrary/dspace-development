@@ -1,0 +1,15 @@
+#!/usr/bin/env jruby -I $DSPACE_JRUBY_HOME/lib
+
+require "dspace"
+
+require "irb"
+require 'irb/completion'
+
+raise("No user account passed -- usage: dspacerb [DSPACE_USER]") unless ARGV[0]
+user = ARGV[0]
+
+DSpace.load
+DSpace.login(user)
+
+ARGV[0] = nil
+IRB.start
