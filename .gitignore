@@ -3,5 +3,6 @@
 *box
 
 docker/dspace/*
-docker/usr/local/src/dspace-*-release.zip
-docker/usr/local/src/dspace-*-release/
+guest/opt/dspace-*-release.zip
+guest/opt/dspace-*-release/
+guest/opt/dspace-cli

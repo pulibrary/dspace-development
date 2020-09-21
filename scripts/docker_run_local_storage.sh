@@ -3,7 +3,8 @@
 docker run \
   -it \
   --name dspace \
-  --mount src="$(pwd)/ansible",target=/ansible,type=bind \
-  --mount src="$(pwd)/docker/usr/local/src",target=/usr/local/src,type=bind \
+  --mount src="$(pwd)/guest",target=/host,type=bind \
+  --mount src="$(pwd)/guest/opt",target=/opt,type=bind \
+  --mount src="$(pwd)/guest/var/opt",target=/var/opt,type=bind \
   -p 8888:8080 \
   jrgriffiniii/dspace-docker-base

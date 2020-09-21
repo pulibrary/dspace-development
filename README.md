@@ -12,15 +12,15 @@ developing and extending DSpace installations run in the container.*
 
 #### Download the release
 ```bash
-cd docker/usr/local/src
-wget "https://github.com/DSpace/DSpace/releases/download/dspace-5.3/dspace-5.3-src-release.zip"
-unzip dspace-5.3-src-release.zip
+cd guest/opt
+wget "https://github.com/DSpace/DSpace/releases/download/dspace-5.5/dspace-5.5-src-release.zip"
+unzip dspace-5.5-src-release.zip
 cd -
 ```
 
 #### Build the release
 ```
-cd docker/usr/local/src/dspace-5.3-src-release/dspace
+cd guest/opt/dspace-5.5-src-release/dspace
 mvn dependency:go-offline
 mvn package
 cd -
@@ -33,6 +33,9 @@ In one terminal, please run the following, as this will start the DSpace Contain
 # This is only necessary if you haven't already built the base image
 docker build -t jrgriffiniii/dspace-docker-base .
 source ./scripts/docker_run_local_storage.sh
+
+docker build -t jrgriffiniii/dspace-docker-base . && source ./scripts/docker_run_local_storage.sh
+
 ```
 
 Then please run the following in a separate terminal to provision the Container:
@@ -69,7 +72,7 @@ vagrant provision
 
 ## Accessing DSpace
 
-One running, DSpace 5.3 should accessible at [http://localhost:8888/jspui/](http://localhost:8888/jspui/). The
+One running, DSpace 5.5 should accessible at [http://localhost:8888/jspui/](http://localhost:8888/jspui/). The
 administrator account created for the installation is `admin@localhost` using the password `secret`.
 
 ## Development
@@ -77,9 +80,9 @@ administrator account created for the installation is `admin@localhost` using th
 ### Initializing the Python environment (for Ansible)
 
 ```bash
-pyenv local 3.7.7
+pyenv local 3.8.5
 pip install pipenv
-pipenv shell
+pipenv shell --python 3.8.5
 pipenv sync
 ```
 
@@ -87,7 +90,7 @@ pipenv sync
 
 Please use the following in order to actively develop the mvn code base:
 ```
-cd docker/usr/local/src/dspace-5.3-src-release
+cd guest/opt/dspace-5.5-src-release
 ```
 
 When this is ready for deployment, please use the following to repackage the build and deploy the webapps in the container:
