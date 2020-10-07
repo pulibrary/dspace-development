@@ -3,6 +3,7 @@
 *box
 
 docker/dspace/*
+guest/opt/dspace-cli
+guest/opt/dspace-jruby
 guest/opt/dspace-*-release.zip
 guest/opt/dspace-*-release/
-guest/opt/dspace-cli
