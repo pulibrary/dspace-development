@@ -1,0 +1,129 @@
+#!/bin/bash
+
+build() {
+  echo -n "Building the DSpace Docker Image: \n"
+  docker build \
+    -t \
+    pulibrary/dspace-docker-base \
+    $(pwd)
+
+  echo
+
+  return 0
+}
+
+start() {
+  echo -n "Starting the DSpace Docker Container: \n"
+  docker run \
+    -it \
+    --name dspace \
+    --mount src="$(pwd)/guest",target=/host,type=bind \
+    --mount src="$(pwd)/guest/opt",target=/opt,type=bind \
+    --mount src="$(pwd)/guest/var/opt",target=/var/opt,type=bind \
+    -p 8888:8080 \
+    pulibrary/dspace-docker-base
+
+  echo
+
+  return 0
+}
+
+provision() {
+  echo -n "Provisioning the DSpace Docker Container: \n"
+  docker exec \
+    -it \
+    dspace \
+    ansible-playbook -e 'install_dspace=false' -vvv /opt/ansible/playbooks/docker.yml
+
+  echo
+
+  return 0
+}
+
+shell() {
+  docker exec \
+    --interactive \
+    --tty \
+    --user=dspace \
+    --workdir=/home/dspace \
+    dspace \
+    bash
+
+  echo
+
+  return 0
+}
+
+root_shell() {
+  docker exec \
+    --interactive \
+    --tty \
+    --user=root \
+    --workdir=/root \
+    dspace \
+    bash
+
+  echo
+
+  return 0
+}
+
+postgres_shell() {
+  docker exec \
+    --interactive \
+    --tty \
+    --user=postgres \
+    --workdir=/var/lib/postgresql \
+    dspace \
+    bash
+
+  echo
+
+  return 0
+}
+
+stop() {
+  echo -n "Stopping the DSpace Docker Container: \n"
+  docker stop dspace
+  echo
+
+  return 0
+}
+
+case "$1" in
+  build)
+    build
+    ;;
+
+  start)
+    start
+    ;;
+
+  provision)
+    provision
+    ;;
+
+  shell)
+    shell
+    ;;
+
+  root-shell)
+    root_shell
+    ;;
+
+  postgres-shell)
+    postgres_shell
+    ;;
+
+  stop)
+    stop
+    ;;
+
+  *)
+    echo "Usage: {build|start|provision|shell|stop}"
+    exit 1
+    ;;
+esac
+
+exit $?
+

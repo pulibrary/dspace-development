@@ -7,8 +7,7 @@ the environment. These are ordered with preference for the most expedient
 methods:
 
 ### Provisioning with a local DSpace build
-*Please note that this is the method which is easiest to use for locally
-developing and extending DSpace installations run in the container.*
+*Please note that this is the method which is easiest to use for locally developing and extending DSpace installations run in the container.*
 
 #### Download the release
 ```bash
@@ -31,34 +30,16 @@ In one terminal, please run the following, as this will start the DSpace Contain
 
 ```
 # This is only necessary if you haven't already built the base image
-docker build -t jrgriffiniii/dspace-docker-base .
-source ./scripts/docker_run_local_storage.sh
+bin/dspace-docker build
 
-docker build -t jrgriffiniii/dspace-docker-base . && source ./scripts/docker_run_local_storage.sh
-
+bin/dspace-docker start
 ```
 
 Then please run the following in a separate terminal to provision the Container:
 
 #### Provision the Container
 ```
-source ./scripts/docker_provision_local_storage.sh
-```
-
-### Provisioning using new DSpace installations
-
-In one terminal, please run the following, as this will start the DSpace Container:
-
-```
-# This is only necessary if you haven't already built the base image
-docker build -t jrgriffiniii/dspace-docker-base .
-source ./scripts/docker_run.sh
-```
-
-Then please run the following in a second terminal to provision the Container:
-
-```
-source ./scripts/docker_provision.sh
+bin/dspace-docker provision
 ```
 
 ## Getting started with Vagrant
@@ -122,5 +103,47 @@ docker commit -a'James Griffin jrgriffiniii@gmail.com' -m'Adding the latest chan
 docker tag jrgriffiniii/dspace-docker:1.0.1 jrgriffiniii/dspace-docker:latest
 docker push jrgriffiniii/dspace-docker:1.0.1
 docker push jrgriffiniii/dspace-docker:latest
+```
+
+### Restoring from Database Exports
+
+```
+bin/dspace-docker postgres-shell
+export TIMESTAMP=`date +%s`
+pg_dump dspace > dspace_$TIMESTAMP.sql
+
+pg_restore --host=localhost --port=5432 --username=dspace --dbname=dspace --format=custom --no-owner --no-privileges --verbose /opt/db/exports/dataspace.2020-09-04_02-00-01.sql.c
+
+dropdb dspace
+createdb dspace --owner=dspace
+pg_dump dspace < dataspace.2020-09-04_02-00-01.sql
+```
+
+### DSpace JRuby and CLI Development
+
+```
+cd guest/opt
+git clone https://github.com/pulibrary/dspace-jruby.git
+git clone https://github.com/pulibrary/dspace-cli.git
+```
+
+```
+bin/dspace-docker root-shell
+\curl -sSL https://get.rvm.io | bash -s stable
+source /etc/profile.d/rvm.sh
+rvm install jruby-9.2.13.0
+exit
+```
+
+```
+bin/dspace-docker shell
+\curl -sSL https://get.rvm.io | bash -s stable
+source /home/dspace/.rvm/scripts/rvm
+
+rvm install jruby-9.2.13.0
+cd /opt/dspace-cli
+rvm use jruby-9.2.13.0
+bundle install
+source bin/jdspace bin/dspacerb admin@localhost
 ```
 
