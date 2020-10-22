@@ -1,10 +1,66 @@
 #!/bin/bash
+#
+# description: DSpace Docker environment
+#
+
+start() {
+  echo "Starting the DSpace Docker Container: "
+
+  if [[ $( docker ps --all --filter="name=dspace" --format "{{.ID}}" ) ]]; then
+    docker start \
+      --attach \
+      dspace
+  else
+    docker run \
+      --interactive \
+      --tty \
+      --name dspace \
+      --mount src="$(pwd)/guest",target=/host,type=bind \
+      --mount src="$(pwd)/guest/opt",target=/opt,type=bind \
+      --mount src="$(pwd)/guest/var/opt",target=/var/opt,type=bind \
+      -d=true \
+      -p 8888:8080 \
+      pulibrary/dspace-docker:base
+  fi
+
+  echo
+
+  return 0
+}
+
+stop() {
+  echo "Stopping the DSpace Docker Container: "
+  docker stop dspace
+  echo
+
+  return 0
+}
+
+status() {
+  if [[ $( docker ps --filter="name=dspace" --format "{{.ID}}" ) ]]; then
+    echo "Running"
+  else
+    echo "Stopped"
+    return 1
+  fi
+
+  return 0
+}
+
+restart() {
+  stop
+  start
+}
+
+reload() {
+  restart
+}
 
 build() {
-  echo -n "Building the DSpace Docker Image: \n"
+  echo "Building the DSpace Docker Image: "
   docker build \
     -t \
-    pulibrary/dspace-docker-base \
+    pulibrary/dspace-docker:base \
     $(pwd)
 
   echo
@@ -12,24 +68,8 @@ build() {
   return 0
 }
 
-start() {
-  echo -n "Starting the DSpace Docker Container: \n"
-  docker run \
-    -it \
-    --name dspace \
-    --mount src="$(pwd)/guest",target=/host,type=bind \
-    --mount src="$(pwd)/guest/opt",target=/opt,type=bind \
-    --mount src="$(pwd)/guest/var/opt",target=/var/opt,type=bind \
-    -p 8888:8080 \
-    pulibrary/dspace-docker-base
-
-  echo
-
-  return 0
-}
-
 provision() {
-  echo -n "Provisioning the DSpace Docker Container: \n"
+  echo "Provisioning the DSpace Docker Container: "
   docker exec \
     -it \
     dspace \
@@ -82,14 +122,6 @@ postgres_shell() {
   return 0
 }
 
-stop() {
-  echo -n "Stopping the DSpace Docker Container: \n"
-  docker stop dspace
-  echo
-
-  return 0
-}
-
 case "$1" in
   build)
     build
@@ -119,8 +151,20 @@ case "$1" in
     stop
     ;;
 
+  status)
+    status
+    ;;
+
+  restart)
+    restart
+    ;;
+
+  reload)
+    reload
+    ;;
+
   *)
-    echo "Usage: {build|start|provision|shell|stop}"
+    echo "Usage: {start|stop|status|reload|restart|build|provision|shell|root-shell|postgres-shell}"
     exit 1
     ;;
 esac

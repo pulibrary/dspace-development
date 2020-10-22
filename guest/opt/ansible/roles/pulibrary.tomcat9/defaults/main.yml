@@ -1,5 +1,6 @@
 ---
-dspace_version: 5.3
+# defaults file for roles/pulibrary.tomcat9
+tomcat9_home: /var/lib/tomcat9
 tomcat9_enabled: true
 tomcat9_hostname: localhost
 tomcat9_server_port: 8005
@@ -10,10 +11,4 @@ tomcat_port: 8080
 tomcat_connection_timeout: 20000
 tomcat_redirect_port: "{{ tomcat9_catalina_redirect_port }}"
 tomcat_ajp_port: 8009
-tomcat9_home: /var/lib/tomcat9
-source_directory: /usr/local/src
-dspace_source: "{{ source_directory }}/dspace-{{ dspace_version }}-src-release"
-dspace_home: /dspace
-application_dbuser_role_attr_flags: ''
-install_dspace: true
-postgres_version: 9.0
+running_on_server: true

@@ -45,6 +45,7 @@
   register: configure_postgres
   when: postgresql_is_local
 
+# localedef --charmap=UTF-8 --inputfile=en_US en_US.UTF-8 needs to be run
 - name: install configuration file
   template:
     src: 'postgresql.conf.j2'

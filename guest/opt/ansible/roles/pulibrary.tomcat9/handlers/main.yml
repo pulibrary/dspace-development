@@ -1,0 +1,6 @@
+---
+# handlers file for roles/pulibrary.tomcat9
+- name: restart tomcat
+  service:
+    name: tomcat9
+    state: restarted

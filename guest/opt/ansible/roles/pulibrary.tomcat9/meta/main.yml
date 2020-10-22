@@ -1,7 +1,7 @@
 ---
 galaxy_info:
   author: Princeton University Library
-  description: DSpace Role
+  description: Tomcat8 Role
 
   license: MIT
 
@@ -14,7 +14,4 @@ galaxy_info:
         - 18.04
 dependencies:
   - role: 'pulibrary.common'
-  - role: 'pulibrary.clamav'
   - role: 'pulibrary.openjdk'
-  - role: 'pulibrary.tomcat9'
-  - role: 'pulibrary.postgresql'

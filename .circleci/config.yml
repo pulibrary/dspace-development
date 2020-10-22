@@ -1,7 +1,7 @@
 version: 2.1
 jobs:
   test_docker_build:
-    working_directory: ~/dspace-vagrant
+    working_directory: ~/dspace-development
     docker:
       - image: quay.io/ansible/molecule:3.0.4
     steps:
@@ -9,9 +9,19 @@ jobs:
       - setup_remote_docker
       - run:
           name: Ensure that the Dockerfile builds
-          command: docker build -t jrgriffiniii/dspace-docker-base .
+          command: docker build -t pulibrary/dspace-docker:base .
+  lint_dockerfiles:
+    working_directory: ~/dspace-development
+    docker:
+      - image: hadolint/hadolint:latest
+    steps:
+      - checkout
+      - run:
+          name: Lint the Dockerfiles
+          command: |
+            hadolint Dockerfile
   lint_ansible_roles:
-    working_directory: ~/dspace-vagrant
+    working_directory: ~/dspace-development
     docker:
       - image: quay.io/ansible/molecule:3.0.4
     steps:
@@ -23,7 +33,7 @@ jobs:
             cd ansible
             molecule lint
   test_ansible_roles:
-    working_directory: ~/dspace-vagrant
+    working_directory: ~/dspace-development
     docker:
       - image: quay.io/ansible/molecule:3.0.4
     steps:
@@ -37,6 +47,7 @@ jobs:
 workflows:
   ci:
     jobs:
+      - lint_dockerfiles
       - test_docker_build
       - lint_ansible_roles
       - test_ansible_roles

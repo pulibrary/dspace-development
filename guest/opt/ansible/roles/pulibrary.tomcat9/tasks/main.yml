@@ -1,0 +1,40 @@
+---
+- name: ensure tomcat9 packages are installed
+  apt:
+    name: ["tomcat9"]
+    update_cache: true
+    state: present
+
+- name: copy tomcat 9 sysv init script
+  template:
+    src: tomcat9
+    dest: /etc/init.d/tomcat9
+    owner: tomcat
+    group: tomcat
+  when: not running_on_server
+
+- name: copy tomcat 9 env variable settings
+  template:
+    src: setenv.sh
+    dest: /usr/share/tomcat9/bin/setenv.sh
+    owner: tomcat
+    group: tomcat
+  when: not running_on_server
+
+    #- name: ensure that tomcat9 is started on runlevels 3, 4, and 5
+    #sysvinit:
+    #name: tomcat9
+    #state: started
+    #enabled: yes
+    #runlevels:
+    #  - "3"
+    #  - "4"
+    #  - "5"
+
+- name: ensure that tomcat9 is started
+  service:
+    name: tomcat9
+    state: started
+    enabled: true
+  changed_when: false
+  ignore_errors: true
