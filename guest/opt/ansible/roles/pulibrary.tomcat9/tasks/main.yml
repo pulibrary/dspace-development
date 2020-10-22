@@ -9,9 +9,9 @@
   template:
     src: tomcat9
     dest: /etc/init.d/tomcat9
-    owner: tomcat
-    group: tomcat
+    mode: 0755
   when: not running_on_server
+  tags: 'tomcat'
 
 - name: copy tomcat 9 env variable settings
   template:
@@ -20,16 +20,19 @@
     owner: tomcat
     group: tomcat
   when: not running_on_server
+  tags: 'tomcat'
 
-    #- name: ensure that tomcat9 is started on runlevels 3, 4, and 5
-    #sysvinit:
-    #name: tomcat9
-    #state: started
-    #enabled: yes
-    #runlevels:
-    #  - "3"
-    #  - "4"
-    #  - "5"
+- name: ensure that tomcat9 is started on runlevels 3, 4, and 5
+  sysvinit:
+    name: tomcat9
+    state: started
+    enabled: yes
+    runlevels:
+      - "3"
+      - "4"
+      - "5"
+  become: yes
+  tags: 'tomcat'
 
 - name: ensure that tomcat9 is started
   service:
@@ -38,3 +41,4 @@
     enabled: true
   changed_when: false
   ignore_errors: true
+  tags: 'tomcat'

@@ -50,8 +50,8 @@ fi
 # The following variables can be overwritten in $DEFAULT
 
 # Run Tomcat 8 as this user ID and group ID
-TOMCAT9_USER=tomcat9
-TOMCAT9_GROUP=tomcat9
+TOMCAT9_USER=tomcat
+TOMCAT9_GROUP=tomcat
 
 # this is a work-around until there is a suitable runtime replacement
 # for dpkg-architecture for arch:all packages

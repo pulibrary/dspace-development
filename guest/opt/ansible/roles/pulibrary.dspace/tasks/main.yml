@@ -94,6 +94,11 @@
     group: tomcat
     recurse: true
 
+- name: create the Tomcat config. directory
+  file:
+    path: "{{ tomcat9_home }}/conf/Catalina/localhost"
+    state: directory
+
 - name: create the Tomcat servlet contexts for the DSpace web apps
   template:
     src: 'dspace_app_context.xml.j2'
