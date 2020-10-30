@@ -8,7 +8,6 @@ start() {
 
   if [[ $( docker ps --all --filter="name=dspace" --format "{{.ID}}" ) ]]; then
     docker start \
-      --attach \
       dspace
   else
     docker run \
@@ -48,8 +47,11 @@ status() {
 }
 
 restart() {
-  stop
-  start
+  if [[ $( docker ps --all --filter="name=dspace" --format "{{.ID}}" ) ]]; then
+    docker restart dspace
+  else
+    start
+  fi
 }
 
 reload() {
@@ -59,9 +61,9 @@ reload() {
 build() {
   echo "Building the DSpace Docker Image: "
   docker build \
-    -t \
-    pulibrary/dspace-docker:base \
-    $(pwd)
+    --file ./Dockerfile \
+    --tag pulibrary/dspace-docker:base \
+    .
 
   echo
 

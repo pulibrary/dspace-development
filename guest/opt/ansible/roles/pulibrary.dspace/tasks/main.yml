@@ -26,8 +26,8 @@
   postgresql_db:
     name: dspace
     encoding: UTF-8
-    lc_collate: C.UTF-8
-    lc_ctype: C.UTF-8
+    lc_collate: en_US.UTF-8
+    lc_ctype: en_US.UTF-8
 
 - name: create the dspace postgresql role
   postgresql_user:
@@ -55,54 +55,41 @@
     state: directory
     mode: '0755'
 
-- name: install the Maven package dependencies
-  apt:
-    name: ["openjdk-11-jdk-headless"]
-    state: present
-    update_cache: true
-
 - name: build the Maven package
-  shell: |
-    export JAVA_HOME=/usr/local/openjdk-8
-    /usr/bin/mvn package
-  args:
+  command:
     chdir: "{{ dspace_source }}/dspace"
+    cmd: "/usr/bin/mvn package"
     creates: "{{ dspace_source }}/dspace/target/dspace-installer"
-    executable: /bin/bash
   when: install_dspace
-  ignore_errors: yes
 
-- name: ensure that tomcat9 is stopped
+- name: ensure that tomcat8 is stopped
   service:
-    name: tomcat9
+    name: tomcat8
     state: stopped
     enabled: true
 
 - name: install DSpace using Ant
-  shell: |
-    export JAVA_HOME=/usr/local/openjdk-8
-    /usr/bin/ant fresh_install
-  args:
+  command:
     chdir: "{{ dspace_source }}/dspace/target/dspace-installer"
-    executable: /bin/bash
+    cmd: "/usr/bin/ant fresh_install"
+  register: ant_install
+  changed_when:
+    - ant_install.rc == 0
+  failed_when:
+    - ant_install.rc == 1
 
 - name: create the DSpace home directory
   file:
     path: "{{ dspace_home }}"
     state: directory
-    owner: tomcat
-    group: tomcat
+    owner: tomcat8
+    group: tomcat8
     recurse: true
-
-- name: create the Tomcat config. directory
-  file:
-    path: "{{ tomcat9_home }}/conf/Catalina/localhost"
-    state: directory
 
 - name: create the Tomcat servlet contexts for the DSpace web apps
   template:
     src: 'dspace_app_context.xml.j2'
-    dest: "{{ tomcat9_home }}/conf/Catalina/localhost/{{ item }}.xml"
+    dest: "{{ tomcat8_home }}/conf/Catalina/localhost/{{ item }}.xml"
   loop:
     - jspui
     - solr
@@ -113,7 +100,7 @@
 
 - name: ensure that tomcat8 is started
   service:
-    name: tomcat9
+    name: tomcat8
     state: started
     enabled: true
 
@@ -121,4 +108,8 @@
   shell:
     cmd: "{{ dspace_home }}/bin/dspace create-administrator -e admin@localhost -f Admin -l User -c en_US -p secret"
   register: dspace_create_admin
+  changed_when:
+    - dspace_create_admin.rc == 0
+  failed_when:
+    - dspace_create_admin.rc == 1
 

@@ -7,7 +7,7 @@
     - ansible_python_interpreter: /usr/bin/python3
     - running_on_server: false
   environment:
-    CATALINA_HOME: /usr/share/tomcat9
-    JAVA_HOME: /usr/lib/jvm/java-11-openjdk-amd64
+    CATALINA_HOME: /usr/share/tomcat8
+    JAVA_HOME: /usr/lib/jvm/java-8-openjdk-amd64
   roles:
     - role: ../roles/pulibrary.dspace

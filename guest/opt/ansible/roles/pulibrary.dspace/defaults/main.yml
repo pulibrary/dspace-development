@@ -1,16 +1,16 @@
 ---
 dspace_version: 5.3
-tomcat9_enabled: true
-tomcat9_hostname: localhost
-tomcat9_server_port: 8005
-tomcat9_catalina_port: 8983
-tomcat9_catalina_redirect_port: 8443
-tomcat_shutdown_port: "{{ tomcat9_server_port }}"
+tomcat8_enabled: true
+tomcat8_hostname: localhost
+tomcat8_server_port: 8005
+tomcat8_catalina_port: 8983
+tomcat8_catalina_redirect_port: 8443
+tomcat_shutdown_port: "{{ tomcat8_server_port }}"
 tomcat_port: 8080
 tomcat_connection_timeout: 20000
-tomcat_redirect_port: "{{ tomcat9_catalina_redirect_port }}"
+tomcat_redirect_port: "{{ tomcat8_catalina_redirect_port }}"
 tomcat_ajp_port: 8009
-tomcat9_home: /var/lib/tomcat9
+tomcat8_home: /var/lib/tomcat8
 source_directory: /usr/local/src
 dspace_source: "{{ source_directory }}/dspace-{{ dspace_version }}-src-release"
 dspace_home: /dspace

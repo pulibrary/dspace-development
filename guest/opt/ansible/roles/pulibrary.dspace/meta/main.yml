@@ -12,9 +12,10 @@ galaxy_info:
       versions:
         - 16.04
         - 18.04
+
 dependencies:
   - role: 'pulibrary.common'
   - role: 'pulibrary.clamav'
   - role: 'pulibrary.openjdk'
-  - role: 'pulibrary.tomcat9'
+  - role: 'pulibrary.tomcat8'
   - role: 'pulibrary.postgresql'
