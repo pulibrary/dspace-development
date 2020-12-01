@@ -61,3 +61,4 @@ html_theme = 'alabaster'
 html_static_path = ['_static']
 
 html_logo = 'images/pulibrary_dspace_logo.svg'
+html_style = 'default.css'
