@@ -1,7 +1,7 @@
 version: 2.1
 jobs:
   test_docker_build:
-    working_directory: ~/dspace-vagrant
+    working_directory: ~/dspace-development
     docker:
       - image: quay.io/ansible/molecule:3.0.4
     steps:
@@ -11,7 +11,7 @@ jobs:
           name: Ensure that the Dockerfile builds
           command: docker build -t jrgriffiniii/dspace-docker-base .
   lint_ansible_roles:
-    working_directory: ~/dspace-vagrant
+    working_directory: ~/dspace-development
     docker:
       - image: quay.io/ansible/molecule:3.0.4
     steps:
@@ -23,7 +23,7 @@ jobs:
             cd ansible
             molecule lint
   test_ansible_roles:
-    working_directory: ~/dspace-vagrant
+    working_directory: ~/dspace-development
     docker:
       - image: quay.io/ansible/molecule:3.0.4
     steps:
@@ -34,9 +34,39 @@ jobs:
           command: |
             cd ansible
             molecule test
+  test_documentation:
+    working_directory: ~/dspace-development
+    docker:
+      - image: circleci/python:3.9
+    steps:
+      - checkout
+      - run: sudo chown -R circleci:circleci /usr/local/bin
+      - run: sudo chown -R circleci:circleci /usr/local/lib/python3.9/site-packages
+      - restore_cache:
+          key: dspace-development-{{ .Branch }}-{{ checksum "Pipfile.lock" }}
+      - run:
+          name: Install the Python dependencies
+          command: |
+            sudo pip install pipenv
+            pipenv install
+      - save_cache:
+          key: dspace-development-{{ .Branch }}-{{ checksum "Pipfile.lock" }}
+          paths:
+            - ".venv"
+            - "/usr/local/bin"
+            - "/usr/local/lib/python3.9/site-packages"
+      - run:
+          name: Build the documentation
+          command: |
+            cd docs
+            pipenv run sphinx-build -b html . _build
+      - store_artifacts:
+          path: ~/dspace-development/docs/_build
+          destination: docs
 workflows:
   ci:
     jobs:
       - test_docker_build
       - lint_ansible_roles
       - test_ansible_roles
+      - test_documentation
