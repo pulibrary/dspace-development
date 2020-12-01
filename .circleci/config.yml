@@ -49,7 +49,7 @@ jobs:
           name: Build the documentation
           command: |
             cd docs
-            make html
+            pipenv run sphinx-build html . _build
       - store_artifacts:
           path: ~/dspace-development/_build
           destination: _build
