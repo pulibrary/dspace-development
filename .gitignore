@@ -2,6 +2,7 @@
 .vagrant
 *box
 
+docs/_build/
 docker/dspace/*
 docker/usr/local/src/dspace-*-release.zip
 docker/usr/local/src/dspace-*-release/
