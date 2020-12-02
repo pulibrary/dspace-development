@@ -1,5 +1,5 @@
 ---
-dspace_version: 5.3
+dspace_version: 5.5
 tomcat8_enabled: true
 tomcat8_hostname: localhost
 tomcat8_server_port: 8005
@@ -16,4 +16,5 @@ dspace_source: "{{ source_directory }}/dspace-{{ dspace_version }}-src-release"
 dspace_home: /dspace
 application_dbuser_role_attr_flags: ''
 install_dspace: true
+ant_install_cmd: "ant --propertyfile={{ dspace_source }}/dev.properties fresh_install"
 postgres_version: 9.0

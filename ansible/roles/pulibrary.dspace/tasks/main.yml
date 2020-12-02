@@ -71,7 +71,7 @@
 - name: install DSpace using Ant
   command:
     chdir: "{{ dspace_source }}/dspace/target/dspace-installer"
-    cmd: "ant fresh_install"
+    cmd: "{{ ant_install_cmd }}"
   register: ant_install
   changed_when:
     - ant_install.rc == 0
