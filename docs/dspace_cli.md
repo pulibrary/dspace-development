@@ -36,6 +36,18 @@ PostgreSQL JDBC Driver
 jruby-9.2.13.0 :001 >
 ```
 
+### Configuration
+```bash
+dspace@host:~$ cd ~/pulibrary-src/dspace-cli
+dspace@host:~$ vi config/dspace.yml
+```
+
+```yaml
+jobs:
+  bitstream_export_job:
+    export_path: '/mnt/dspace_exports'
+```
+
 ### Listing the CLI Tasks
 ```bash
 dspace@host:~$ cd ~/pulibrary-src/dspace-cli
@@ -92,6 +104,21 @@ _This writes the bitstream to files on the local file system_
 query = DSpace::CLI::Query.new
 query.find_by_handle('88435/dsp01kk91fp56s')
 query.results.first.export_bitstreams
+```
+
+By default, the files are exported into `exports/bitstreams`. One may customize this within the configuration.
+
+Following this, copying the exports using a utility such as `rsync` is quite straightforward:
+```bash
+~$ ssh -L 2222:proxy-host:22 dspace@host
+~$ rsync -auvzi --progress -e 'ssh -p 2222' dspace@localhost:~/pulibrary-src/dspace-cli/exports/bitstreams/ .
+```
+
+Or, should this be configured for the location `/mnt/dspace_exports`:
+
+```bash
+~$ ssh -L 2222:proxy-host:22 dspace@host
+~$ rsync -auvzi --progress -e 'ssh -p 2222' dspace@localhost:/mnt/dspace_exports/ .
 ```
 
 ### Workflow Management
