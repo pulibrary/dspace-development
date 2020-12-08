@@ -95,8 +95,6 @@
     - solr
     - oai
     - rest
-    - sword
-    - swordv2
 
 - name: ensure that tomcat8 is started
   service:

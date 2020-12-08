@@ -18,7 +18,7 @@ cd -
 ```bash
 cd docker/usr/local/src/dspace-5.5-src-release/dspace
 mvn clean install
-mvn package
+mvn package -Denv=dev
 cd -
 ```
 
