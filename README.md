@@ -15,7 +15,7 @@ cd -
 ```
 
 ##### Building the Open Access Repository
-The Symplectic RT4DS DSpace Module (available as a GZip-compressed TAR from ) must be included in order to build the OAR. After downloading this file, please place this in the `docker/usr/local/src` directory:
+The Symplectic RT4DS DSpace Module ([available as a GZip-compressed TAR](https://drive.google.com/file/d/1SvMY4lsOHLZcCv_9FX-iO7FssEBCsJ4U/view?usp=sharing)) must be included in order to build the OAR. After downloading this file, please place this in the `docker/usr/local/src` directory:
 
 ```bash
 cd docker/usr/local/src
