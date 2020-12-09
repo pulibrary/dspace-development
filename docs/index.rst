@@ -11,6 +11,7 @@ DSpace at the Princeton University Library
    :caption: Contents:
 
    getting_started
+   development_workflow
    dspace_jruby
    dspace_cli
    dspace_python
