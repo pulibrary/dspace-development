@@ -65,5 +65,5 @@ source ./scripts/docker_provision_local_storage.sh
 
 ### Accessing DSpace
 
-One running, DSpace should accessible at [http://localhost:8888/jspui/](http://localhost:8888/jspui/). The
+Once running, DSpace should accessible at [http://localhost:8888/jspui/](http://localhost:8888/jspui/). The
 administrator account created for the installation is `admin@localhost` using the password `secret`.
