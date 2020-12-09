@@ -14,6 +14,15 @@ git checkout oar-client-DEV # For the Open Access Repository (OAR)
 cd -
 ```
 
+##### Building the Open Access Repository
+The Symplectic RT4DS DSpace Module (available as a GZip-compressed TAR from ) must be included in order to build the OAR. After downloading this file, please place this in the `docker/usr/local/src` directory:
+
+```bash
+cd docker/usr/local/src
+cp rt4ds.tar.gz .
+tar -xvf rt4ds.tar.gz
+```
+
 ##### Build the release
 ```bash
 cd docker/usr/local/src/dspace-5.5-src-release/dspace
