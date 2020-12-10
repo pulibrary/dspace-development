@@ -11,6 +11,8 @@ molecule = "*"
 ansible-lint = "*"
 flake8 = "*"
 docker = "*"
+sphinx = "*"
+recommonmark = "*"
 
 [requires]
 python_version = "3.7"
