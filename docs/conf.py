@@ -18,7 +18,7 @@
 # -- Project information -----------------------------------------------------
 
 project = 'pulibrary/dspace'
-copyright = '2020 The Trustees of Princeton University'
+copyright = '2021 The Trustees of Princeton University'
 author = 'Princeton University Library'
 
 # The full version, including alpha/beta/rc tags
