@@ -97,5 +97,5 @@ $ rsync \
 ##### Import the SIPs
 ```bash
 $ ssh -J pulsys@$DATASPACE_PROXY_HOST dspace@$DATASPACE_HOST
-dspace@DATASPACE_HOST:~$ /dspace/bin/dspace import -add --eperson $USER@princeton.edu --source $HOME/dspace_imports/$BATCH_ID/SUCCESS --mapfile $HOME/dspace_imports/$BATCH_ID/import.mapfile
+dspace@DATASPACE_HOST:~$ /dspace/bin/dspace import -add --eperson $USER@princeton.edu --source $HOME/dspace_imports/$BATCH_ID/SUCCESS --mapfile $HOME/dspace_imports/$BATCH_ID/import.mapfile --workflow
 ```
