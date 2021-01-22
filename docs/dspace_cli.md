@@ -121,6 +121,8 @@ Or, should this be configured for the location `/mnt/dspace_exports`:
 ~$ rsync -auvzi --progress -e 'ssh -p 2222' dspace@localhost:/mnt/dspace_exports/ .
 ```
 
+The exports will be named after their bistream IDs. To pair them with their original filenames, you may want to use the DSpace API. For example, if you download `119610.bin`, you can get the filename (`models_hourglass.tar.gz`) from https://dataspace.princeton.edu/rest/bitstreams/119610. This can be especially useful if a record contains tens of files.
+
 ### Workflow Management
 
 #### Adding and Removing Users from Task Pools
