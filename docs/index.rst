@@ -15,6 +15,7 @@ DSpace at the Princeton University Library
    dspace_jruby
    dspace_cli
    dspace_python
+   dataspace
 
 Indices and tables
 ------------------
