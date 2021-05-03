@@ -100,3 +100,12 @@ $ rsync \
 $ ssh -J pulsys@$DATASPACE_PROXY_HOST dspace@$DATASPACE_HOST
 dspace@DATASPACE_HOST:~$ /dspace/bin/dspace import -add --eperson $USER@princeton.edu --source $HOME/dspace_imports/$BATCH_ID/SUCCESS --mapfile $HOME/dspace_imports/$BATCH_ID/import.mapfile --workflow
 ```
+
+## Globus
+
+[Globus](https://www.globus.org/) is a platform that allows users to upload and
+download large datasets easily. When working with researchers, PRDS will link to
+Globus through Dataspace's metadata instead of storing the data directly in Dataspace. 
+
+[An example Dataspace dataset with data in Globus.](https://dataspace.princeton.edu/handle/88435/dsp01nz8062179)
+[ITIMS Google Drive containing Globus documentation.](https://drive.google.com/drive/folders/1W3PM757IW6dMqD_kZizQVdNftvm1Ct6V?usp=sharing)
