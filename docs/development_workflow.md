@@ -6,6 +6,8 @@ When collaborating upon an update or repairing a bug within the code bases for
 DataSpace and the OAR, there exists a workflow for deploying, testing, and
 releasing updates for the code bases.
 
+For more details on the dev workflow, see [Atmire's DSpace Documentation](https://docs.google.com/document/d/1Q-SsrBPG2Bv526I_6hgjeOb9n3HTRegtyAakPMt-l54/edit#heading=h.fxwqqj3go2dl).
+
 ### `DEV` Builds (`dev` Environment)
 
 Currently, there are two `DEV` branches for the DSpace implementations:
@@ -99,3 +101,5 @@ user@localhost:~$ git rebase dataspace-prod
 ```
 
 Following this, one should issue a `git push`, and create a new `Merge Request` using `dataspace-prod` as the base branch. One should request a review from a member of Atmire for this `Merge Request`. Following the successful merging of this, one must then contact both Atmire and our DevOps Engineer of the Operations Team in order to schedule a production update.
+
+After merging, tag the dataspace-prod branch with the date of the deploy, with syntax: dataspace-production-20201118. If no more work is expected on the branch, delete it locally and on the git server.
