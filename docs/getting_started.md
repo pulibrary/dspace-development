@@ -25,6 +25,9 @@ OAR installations are also deployed on three server environments:
 
 ### Actively maintained repositories
 
+Because DSpace is particularly difficult to work with, a collection of repositories
+have been created externally to aid with bulk ingest, reporting, and other administrative tasks.
+
 - [pulibrary/dspace-cli](https://github.com/pulibrary/dspace-cli): A collection of dataspace-specific administrative jruby scripts inherited from OIT that answer common stakeholder questions.
 - [pulibrary/dspace-jruby](https://github.com/pulibrary/dspace-jruby): A jruby wrapper for any DSpace instance. This is used heavily in [pulibrary/dspace-cli](https://github.com/pulibrary/dspace-cli)
 - [pulibrary/dspace-python](https://github.com/pulibrary/dspace-python): A collection of dataspace-specific administrative python scripts inherited from OIT that answer common stakeholder questions. It is largely used for bulk ingest and reporting purposes, but with the introduction of [pulibrary/vireo_transformation](https://github.com/pulibrary/vireo_transformation) and PPPL's direct access to dataspace, it may soon no longer be needed.
@@ -33,4 +36,12 @@ OAR installations are also deployed on three server environments:
 - [PrincetonUniversityLibrary/dspace-smoke-tests](https://github.com/PrincetonUniversityLibrary/dspace-smoke-tests): Automated smoke tests for PUL DSpace instances. Written in Cypress.
 - [PrincetonUniversityLibrary/dataspace](https://github.com/PrincetonUniversityLibrary/dataspace): A copy of dataspace in GitHub so that our stakeholders can make PRs to edit XML when necessary.
 - [PrincetonUniversityLibrary/thesiscentral-vireo](https://github.com/PrincetonUniversityLibrary/thesiscentral-vireo): Yet more documentation and scripts for ingesting senior theses inherited from OIT. Hopefully deprecated after the creation of [pulibrary/vireo_transformation](https://github.com/pulibrary/vireo_transformation).
-- [pulibrary/vireo_transformation](https://github.com/pulibrary/vireo_transformation): A ruby-based solution to the complicated bulk-ingest process of senior theses. Seeking to deprecate the [existing, unreliably python scripts.](https://github.com/pulibrary/dspace-python/tree/main/thesiscentral-vireo/dataspace/python)
+- [pulibrary/vireo_transformation](https://github.com/pulibrary/vireo_transformation): A ruby-based solution to the complicated bulk ingest process of senior theses. Seeking to deprecate the [existing, unreliably python scripts.](https://github.com/pulibrary/dspace-python/tree/main/thesiscentral-vireo/dataspace/python)
+
+## Other Useful Links
+
+- ZenHub boards
+    - [Princeton Research Data and Open Scholarship](https://app.zenhub.com/workspaces/princeton-research-data-and-open-scholarship-5f7cda0ead420200130e165f/board): Tracks tickets specific to PRDS & PPPL.
+    - [dspace](https://app.zenhub.com/workspaces/dspace-5eab07f305a942a2a8b38790/board?repos=260288351): Tracks maintenance and other miscellaneous work not necessarily tied to a stakeholder.
+- [Atmire DSpace Documentation](https://docs.google.com/document/d/1Q-SsrBPG2Bv526I_6hgjeOb9n3HTRegtyAakPMt-l54/edit)
+
