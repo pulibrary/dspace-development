@@ -1,11 +1,10 @@
 # DataSpace
 
-This is a test.
-
 DataSpace is the DSpace implementation for Princeton University, currently
 serving as the research data repository and platform for publishing graduate
-dissertations, senior theses, and a selection of monographs and periodicals
-maintained by the Princeton University Library.
+dissertations, senior theses, research datasets from PU and PPPL stakeholders,
+and a selection of monographs and periodicals maintained by the Princeton
+University Library.
 
 ## Graduate Dissertation Collections
 
