@@ -10,6 +10,45 @@ Useful commands:
 * `\copy ({query}) to '{filename}' as CSV HEADER`: saves the query to a CSV with a header
      * The query needs to be one line. It may be easier to save from `less` (just press `s` in `less` and it'll prompt you to create a log file). This won't be a CSV, but you can use '|' as a delimiter, and it'll get you close.
 
+### Generate thesis report
+
+Lynn Durgin wants an annual report on the contents and embargo status of all theses in Dataspace. (https://github.com/pulibrary/dspace-development/issues/313)
+
+```sql
+SELECT handle,size_bytes,(
+    SELECT text_value as filename
+    FROM metadatavalue
+    WHERE metadatavalue.resource_id = bitstream.bitstream_id AND metadata_field_id = 64 
+    -- 64 is dc.title in the metadata registry (this is visible in the dataspace admin view)
+), (
+    SELECT text_value as embargo_lift
+    FROM metadatavalue
+    WHERE metadatavalue.resource_id = item.item_id AND metadata_field_id = 81
+   -- 81 is pu.embargo_lift in the metadata registry
+), (
+    SELECT text_value as embargo_terms
+    FROM metadatavalue
+    WHERE metadatavalue.resource_id = item.item_id AND metadata_field_id = 82
+), (
+    SELECT text_value as mudd_walkin
+    FROM metadatavalue
+    WHERE metadatavalue.resource_id = item.item_id AND metadata_field_id = 362
+)
+FROM item
+-- Collect items with their handles and bitstreams
+INNER JOIN item2bundle ON (item.item_id = item2bundle.item_id)
+INNER JOIN bundle2bitstream ON (item2bundle.bundle_id = bundle2bitstream.bundle_id)
+INNER JOIN bitstream on (bundle2bitstream.bitstream_id = bitstream.bitstream_id)
+INNER JOIN handle on (handle.resource_id = item.item_id)
+-- Collect the items where the pu.date.classyear is equal to the given report year
+WHERE item.item_id IN (
+    SELECT resource_id
+    FROM metadatavalue
+    WHERE metadata_field_id = 161 AND text_value = '2020'
+) AND bitstream_format_id = 3; 
+-- The bitstream_format_id of 3 selects only the PDFs, ignoring the license txt files
+```
+
 ### Get large bitstreams
 
 Get bitstreams over 1GB.
