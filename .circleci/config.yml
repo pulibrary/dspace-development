@@ -9,7 +9,9 @@ jobs:
       - setup_remote_docker
       - run:
           name: Ensure that the Dockerfile builds
-          command: docker build -t pulibrary/dspace-docker-base .
+          command: |
+            cd docker/
+            docker build -t pulibrary/dspace-docker-base .
   lint_ansible_roles:
     working_directory: ~/dspace-development/ansible
     docker:
@@ -58,6 +60,7 @@ jobs:
       - run:
           name: Build the documentation
           command: |
+            cd docs
             pipenv run sphinx-build -b html . _build
       - store_artifacts:
           path: ~/dspace-development/docs/_build
