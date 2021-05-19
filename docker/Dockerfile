@@ -1,8 +1,8 @@
 FROM phusion/baseimage:0.11
 ENV pip_packages "pipenv ansible pyopenssl"
 
-LABEL maintainer="James Griffin \"jrgriffiniii@gmail.com\""
-LABEL repository="https://github.com/jrgriffiniii/dspace-vagrant"
+LABEL maintainer="James Griffin \"jrg5@princeton.edu\""
+LABEL repository="https://github.com/pulibrary/dspace-development"
 
 RUN set -ex; \
   apt-get update \
