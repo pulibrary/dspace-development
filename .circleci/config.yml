@@ -20,6 +20,7 @@ jobs:
       - run:
           name: Lint Ansible Roles and YAML configuration files
           command: |
+            cd ansible
             molecule lint
   test_ansible_roles:
     working_directory: ~/dspace-development/ansible
@@ -31,6 +32,7 @@ jobs:
       - run:
           name: Run the Molecule tests for the Ansible Roles
           command: |
+            cd ansible
             molecule test
   test_documentation:
     working_directory: ~/dspace-development/docs
