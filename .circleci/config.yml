@@ -1,7 +1,7 @@
 version: 2.1
 jobs:
   test_docker_build:
-    working_directory: ~/dspace-development
+    working_directory: ~/dspace-development/docker
     docker:
       - image: quay.io/ansible/molecule:3.0.4
     steps:
@@ -9,9 +9,9 @@ jobs:
       - setup_remote_docker
       - run:
           name: Ensure that the Dockerfile builds
-          command: docker build -t jrgriffiniii/dspace-docker-base .
+          command: docker build -t pulibrary/dspace-docker-base .
   lint_ansible_roles:
-    working_directory: ~/dspace-development
+    working_directory: ~/dspace-development/ansible
     docker:
       - image: quay.io/ansible/molecule:3.0.4
     steps:
@@ -20,10 +20,9 @@ jobs:
       - run:
           name: Lint Ansible Roles and YAML configuration files
           command: |
-            cd ansible
             molecule lint
   test_ansible_roles:
-    working_directory: ~/dspace-development
+    working_directory: ~/dspace-development/ansible
     docker:
       - image: quay.io/ansible/molecule:3.0.4
     steps:
@@ -32,10 +31,9 @@ jobs:
       - run:
           name: Run the Molecule tests for the Ansible Roles
           command: |
-            cd ansible
             molecule test
   test_documentation:
-    working_directory: ~/dspace-development
+    working_directory: ~/dspace-development/docs
     docker:
       - image: circleci/python:3.9
     steps:
@@ -58,7 +56,6 @@ jobs:
       - run:
           name: Build the documentation
           command: |
-            cd docs
             pipenv run sphinx-build -b html . _build
       - store_artifacts:
           path: ~/dspace-development/docs/_build

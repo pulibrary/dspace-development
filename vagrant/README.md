@@ -19,7 +19,7 @@ administrator account created for the installation is `admin@localhost` using th
 ### Initializing the Python environment (for Ansible)
 
 ```bash
-pyenv local 3.7.7
+asdf local python 3.9.0 # or pyenv local 3.9.0
 pip install pipenv
 pipenv shell
 pipenv sync

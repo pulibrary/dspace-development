@@ -1,7 +1,7 @@
 # DSpace Development for the Princeton University Library
 
 ## Sphinx Documentation
-Currently, documentation for using DSpace utilities is generated using [Sphinx](https://www.sphinx-doc.org/en/master/). This may be built locally, or more readily accessed using the [Read the docs](https://readthedocs.org/) service on <https://dspace-development.readthedocs.io/en/latest/>.
+Currently, documentation for using DSpace utilities is generated using [Sphinx](https://www.sphinx-doc.org/en/master/). This may be built locally, or more readily accessed using the [Read the Docs](https://readthedocs.org/) service on <https://dspace-development.readthedocs.io/en/latest/>.
 
 ### Building the Documentation
 
