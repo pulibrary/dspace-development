@@ -109,3 +109,58 @@ Globus through Dataspace's metadata instead of storing the data directly in Data
 
 [An example Dataspace dataset with data in Globus.](https://dataspace.princeton.edu/handle/88435/dsp01nz8062179)
 [ITIMS Google Drive containing Globus documentation.](https://drive.google.com/drive/folders/1W3PM757IW6dMqD_kZizQVdNftvm1Ct6V?usp=sharing)
+
+## The Senior Theses Collections and Thesis Central
+
+Within the [Princeton University Undergraduate Senior Theses Community](https://dataspace.princeton.edu/handle/88435/dsp019c67wm88m), one is currently able to access the born-digital copies of senior theses submissions provided for Princeton University Library students. Please be aware that, for each academic department, one is provided with a DSpace Collection (such as [Chemistry](https://dataspace.princeton.edu/handle/88435/dsp018c97kq479).
+
+On an annual basis, the thesis submissions are provided by Princeton University students using an implementation of [Vireo (an Electronic Thesis and Dissertation management system)](https://github.com/TexasDigitalLibrary/Vireo.git). This service is [Thesis Central](https://thesis-central.princeton.edu), and opens for student deposits between dates an March and May (within which thesis submissions are captured and stored for later import into DataSpace).
+
+### Importing Thesis Central Submissions
+
+#### Initializing the Build Environment
+
+```bash
+brew install tcsh
+git clone https://github.com/pulibrary/dspace-python.git
+cd dspace-python
+asdf local python 2.7.17 # or pyenv local 2.7.17
+pip install -U pyenv
+pipenv shell
+pipenv sync
+```
+
+#### Building DSpace Submission Information Packages
+
+For this example, one will need to download three files in order to build the packages locally:
+
+ * RestrictionsWithId.xlsx
+ * ImportRestrictions.xlsx
+ * AdditionalPrograms.xlsx
+
+These should be downloaded directly or copied into the `export` directory.
+
+Each of these are provided by colleagues within the Library using a privately-accessible Google Drive Folder. Please contact members of Digital Repository and Discovery Services for access to these.
+
+```bash
+/bin/tcsh
+
+export department='Physics'
+
+mkdir "export/$department"
+cp export/RestrictionsWithId.xlsx "export/$department/RestrictionsWithId.xlsx"
+cp export/ImportRestrictions.xlsx "export/$department/ImportRestrictions.xlsx"
+cp export/AdditionalPrograms.xlsx "export/$department/AdditionalPrograms.xlsx"
+```
+
+##### Downloading Thesis Central Exports
+
+One must then authenticate into https://thesis-central.princeton.edu, within
+which one will have access to the administrative menu. Should one *not* be
+provided with these privileges, then one must please request this from DRDS
+colleagues.
+
+Following this, one must download all submissions for the desired department using the user interface:
+
+
+(Save the Thesis Central exports to "export/$department/ExcelExport.xlsx")
