@@ -42,3 +42,15 @@ For reference, please find the following documentation for the Symplectic Elemen
 * [API Schemas (in the XML)](https://support.symplectic.co.uk/support/solutions/articles/6000050008-api-schemas)
 
 Should one be required to authenticate with a user name and password for accessing this documentation, please contact a member of the DRDS team for support.
+
+## Troubleshooting
+
+### Network or Server Access
+Should one encounter issues related to the ability to access a given service over a TCP port for one of the two servers managed by the Office of Information Technology (OIT), please be aware that there is a specific form which is used to submit firewall rule update requests:
+
+- [Firewall Rule Request](https://princeton.service-now.com/service?id=sc_cat_item&sys_id=c6d0a8591bd66c5098d1217e6e4bcbbd)
+
+Otherwise, should there be any general questions regarding the ability to request server access, please submit the enquiry using:
+
+- [Get Help](https://princeton.service-now.com/service?id=csm_sc_cat_item&sys_id=588cfb664fcd124022a859dd0210c7ca)
+
