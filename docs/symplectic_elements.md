@@ -39,6 +39,8 @@ For reference, please find the following documentation for the Symplectic Elemen
 * [API Administrator Guide](https://support.symplectic.co.uk/support/solutions/articles/6000049959-api-administrator-guide)
 * [Manage the Elements API](https://support.symplectic.co.uk/support/solutions/articles/6000049962-manage-the-elements-api)
 * [API User Guide](https://support.symplectic.co.uk/support/solutions/articles/6000050010-api-user-guide)
+* [API v5.5 Requests and Responses](https://support.symplectic.co.uk/support/solutions/articles/6000170776-api-v5-5-requests-and-responses)
+* [API v5.5 Resources and Operations](https://support.symplectic.co.uk/support/solutions/articles/6000170777-api-v5-5-resources-and-operations)
 * [API Schemas (in the XML)](https://support.symplectic.co.uk/support/solutions/articles/6000050008-api-schemas)
 
 Should one be required to authenticate with a user name and password for accessing this documentation, please contact a member of the DRDS team for support.
