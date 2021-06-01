@@ -16,6 +16,7 @@ DSpace at the Princeton University Library
    dspace_cli
    dspace_python
    dataspace
+   symplectic_elements
 
 Indices and tables
 ------------------
