@@ -21,19 +21,23 @@ dspace@host:~/pulibrary-src/dspace-cli$ bundle install
 ```
 
 ### Starting the DSpace Ruby interpreter
+
+You will need to first ssh and login as the `dspace` user (`sudo su - dspace`). Below, `$eperson` is whatever account you'd like to use to login when applying changes.
+
 ```bash
+dspace@host:~$ source $HOME/.rvm/scripts/rvm
 dspace@host:~$ cd ~/pulibrary-src/dspace-cli
-dspace@host:~/pulibrary-src/dspace-cli$ bin/dspace-irb jrg5
-Using /dspace
-Loading jars
-Loading /dspace/config/dspace.cfg
-INFO: Loading provided config file: /dspace/config/dspace.cfg
-INFO: Using dspace provided log configuration (log.init.config)
-INFO: Loading: /dspace/config/log4j.properties
-Starting new DSpaceKernel
-DB jdbc:postgresql://localhost:5432/dspace_db, UserName=dspace_db_user,
-PostgreSQL JDBC Driver
-jruby-9.2.13.0 :001 >
+dspace@host:~/pulibrary-src/dspace-cli$ bin/dspace-irb $eperson
+  Using /dspace
+  Loading jars
+  Loading /dspace/config/dspace.cfg
+  INFO: Loading provided config file: /dspace/config/dspace.cfg
+  INFO: Using dspace provided log configuration (log.init.config)
+  INFO: Loading: /dspace/config/log4j.properties
+  Starting new DSpaceKernel
+  DB jdbc:postgresql://localhost:5432/dspace_db, UserName=dspace_db_user,
+  PostgreSQL JDBC Driver
+  jruby-9.2.13.0 :001 >
 ```
 
 ### Configuration
