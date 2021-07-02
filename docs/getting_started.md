@@ -34,8 +34,7 @@ have been created externally to aid with bulk ingest, reporting, and other admin
 - [pulibrary/orangetheses](https://github.com/pulibrary/orangetheses/): Harvests Senior Theses from dataspace and indexes them into the catalog.
 - [PrincetonUniversityLibrary/dspace-smoke-tests](https://github.com/PrincetonUniversityLibrary/dspace-smoke-tests): Automated smoke tests for PUL DSpace instances. Written in Cypress.
 - [PrincetonUniversityLibrary/dataspace](https://github.com/PrincetonUniversityLibrary/dataspace): A copy of dataspace in GitHub so that our stakeholders can make PRs to edit XML when necessary.
-- [PrincetonUniversityLibrary/thesiscentral-vireo](https://github.com/PrincetonUniversityLibrary/thesiscentral-vireo): Yet more documentation and scripts for ingesting senior theses inherited from OIT. Hopefully deprecated after the creation of [pulibrary/vireo_transformation](https://github.com/pulibrary/vireo_transformation).
-- [pulibrary/vireo_transformation](https://github.com/pulibrary/vireo_transformation): A ruby-based solution to the complicated bulk ingest process of senior theses.
+- [pulibrary/etd_transformer](https://github.com/pulibrary/etd_transformer): A ruby-based solution to the complicated bulk ingest process of senior theses.
 
 ## Other Useful Links
 
