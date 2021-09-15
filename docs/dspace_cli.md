@@ -201,7 +201,7 @@ sub_query.result_set.submitter_email = 'user@domain.edu'
 
 There is a known bug in DSpace 5.5 that causes users who are newly added to Groups not to be able to see or interact with tasks in the workflow pool associated with that Group in their dashboard when they log in.
 
-In order to address this, manual intervention is needed.  Over the dspace-cli, the following commands must be executed to accomplish this:
+In order to address this, manual intervention is needed.  Over on [`dspace-cli`](https://github.com/pulibrary/dspace-cli), the following commands must be executed to accomplish this:
 
 ```ruby
 java_import(org.dspace.eperson.Group)
