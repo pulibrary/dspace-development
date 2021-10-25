@@ -274,6 +274,24 @@ sub_query = query.find_mechanical_and_aerospace_engineering_department_items
 sub_query.results.length
 ```
 
+#### Removing from a Collection
+
+```ruby
+query = DSpace::CLI::Query.new
+# handle of the object to be updated
+query.find_by_handle('88435/dsp010k225f00b')
+first_item = query.results.first
+
+# handle of the collection from which the object is to be removed
+collection_handle = '88435/dsp01c247ds15b'
+collection = DSpace::CLI::SeniorThesisCollection.find_for_handle(collection_handle)
+collection.removeItem(first_item)
+collection.index
+```
+
+To ensure that these changes persist across DataSpace, after updating the object's collection association, edit the item and update it using the web UI. If there is a certificate program affiliation using the `pu.certificate` metadata field value, remove it in the web UI and update the item to avoid it getting updated and reindexed later on.
+
+
 #### Exporting Items
 
 ```ruby
@@ -386,6 +404,44 @@ export = Vireo::CLI::Export.build_from_spreadsheet(file_path: spreadsheet_path, 
 export.build_batch_import
 export.write_batch_import('mathematics.csv')
 ```
+#### Mapping Theses to Collections by `PU.Certificate` Values
+
+Some items are imported into DataSpace from Vireo as part of a distinct department and separate certificate program.  These certificate programs have associated collections.  The collection is derived from the value in the `pu.certificate` metadata field for each item.  These collections are as follows:
+
+Collection name | Collection ark | Pu.certificate value
+-- | -- | --
+Creative Writing Program | https://dataspace.princeton.edu/handle/88435/dsp01gx41mh91n | Creative Writing Program
+East Asian Studies Program | https://dataspace.princeton.edu/handle/88435/dsp016682x659t | East Asian Studies Program
+Global Health and Health Policy Program | https://dataspace.princeton.edu/handle/88435/dsp01kh04ds333 | Global Health and Health Policy Program
+Theater | https://dataspace.princeton.edu/handle/88435/dsp01c247ds15b | Theater Program
+
+Here is an example for how to accomplish this for "Theater Program" items in 2021, executed from within the CLI terminal:
+
+```
+collection_handle = '88435/dsp01c247ds15b'
+cert_collection = DSpace::CLI::SeniorThesisCollection.find_for_handle(collection_handle)
+query = DSpace::CLI::SeniorThesisCommunity.find_by_class_year('2021')
+
+cert_program = 'Theater Program'
+sub_query = query.find_by_certificate_program(cert_program)
+items = []
+sub_query.results.each do |item|
+  add_to_collection = true
+  item.collections.each do |ic|
+    add_to_collection = false if ic.handle == collection_handle
+  end
+  items << item if add_to_collection
+end
+
+items.each do |i|
+  cert_collection.add_item(i)
+  cert_collection.update
+end
+
+cert_collection.index
+```
+Where `collection_handle` is the ark handle for the certificate collection to be mapped (consult the table above), `cert_program` is the string value from the item's `pu.certificate` field that cooresponds to the collection (for example `Theater Program`, `Creative Writing Program`), and the parameter in the call to `find_by_class_year` matches the current year.
+
 
 ### Reporting
 
