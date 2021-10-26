@@ -46,12 +46,6 @@ jobs:
       - checkout
       - run: sudo chown -R circleci:circleci /usr/local/bin
       - run: sudo chown -R circleci:circleci /usr/local/lib/python3.9/site-packages
-      - save_cache:
-          key: dspace-development-{{ .Branch }}-{{ checksum "Pipfile.lock" }}
-          paths:
-            - ".venv"
-            - "/usr/local/bin"
-            - "/usr/local/lib/python3.9/site-packages"
       - restore_cache:
           key: dspace-development-{{ .Branch }}-{{ checksum "Pipfile.lock" }}
       - run:
@@ -59,7 +53,12 @@ jobs:
           command: |
             sudo pip install pipenv
             pipenv install
-
+      - save_cache:
+          key: dspace-development-{{ .Branch }}-{{ checksum "Pipfile.lock" }}
+          paths:
+            - ".venv"
+            - "/usr/local/bin"
+            - "/usr/local/lib/python3.9/site-packages"
       - run:
           name: Build the documentation
           command: |
