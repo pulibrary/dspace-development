@@ -41,11 +41,11 @@ jobs:
   test_documentation:
     working_directory: ~/dspace-development/docs
     docker:
-      - image: circleci/python:3.7
+      - image: circleci/python:3.9
     steps:
       - checkout
       - run: sudo chown -R circleci:circleci /usr/local/bin
-      - run: sudo chown -R circleci:circleci /usr/local/lib/python3.7/site-packages
+      - run: sudo chown -R circleci:circleci /usr/local/lib/python3.9/site-packages
       - restore_cache:
           key: dspace-development-{{ .Branch }}-{{ checksum "Pipfile.lock" }}
       - run:
@@ -58,7 +58,7 @@ jobs:
           paths:
             - ".venv"
             - "/usr/local/bin"
-            - "/usr/local/lib/python3.7/site-packages"
+            - "/usr/local/lib/python3.9/site-packages"
       - run:
           name: Build the documentation
           command: |
