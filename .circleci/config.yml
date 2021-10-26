@@ -3,7 +3,7 @@ jobs:
   test_docker_build:
     working_directory: ~/dspace-development/docker
     docker:
-      - image: quay.io/ansible/toolset:main
+      - image: quay.io/ansible/toolset:3.5.0
     steps:
       - checkout
       - setup_remote_docker
@@ -15,7 +15,7 @@ jobs:
   lint_ansible_roles:
     working_directory: ~/dspace-development/ansible
     docker:
-      - image: quay.io/ansible/toolset:main
+      - image: quay.io/ansible/toolset:3.5.0
     steps:
       - checkout
       - setup_remote_docker
@@ -27,7 +27,7 @@ jobs:
   test_ansible_roles:
     working_directory: ~/dspace-development/ansible
     docker:
-      - image: quay.io/ansible/toolset:main
+      - image: quay.io/ansible/toolset:3.5.0
     steps:
       - checkout
       - setup_remote_docker
