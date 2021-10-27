@@ -45,6 +45,4 @@ workflows:
   ci:
     jobs:
       - test_docker_build
-      - lint_ansible_roles
-      - test_ansible_roles
       - test_documentation
