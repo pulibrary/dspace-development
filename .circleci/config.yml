@@ -12,32 +12,6 @@ jobs:
           command: |
             cd docker/
             docker build -t pulibrary/dspace-docker-base .
-  lint_ansible_roles:
-    working_directory: ~/dspace-development/ansible
-    docker:
-      - image: quay.io/ansible/toolset:3.5.0
-    steps:
-      - checkout
-      - setup_remote_docker
-      - run:
-          name: Lint Ansible Roles and YAML configuration files
-          command: |
-            cd ansible
-            molecule lint
-  test_ansible_roles:
-    working_directory: ~/dspace-development/ansible
-    docker:
-      - image: quay.io/ansible/toolset:3.5.0
-    steps:
-      - checkout
-      - setup_remote_docker
-      - run:
-          name: Run the Molecule tests for the Ansible Roles
-          command: |
-            cd ansible
-            # Disabling this in response to the error https://github.com/frappe/bench/issues/1117
-            # molecule test
-            molecule --help
   test_documentation:
     working_directory: ~/dspace-development/docs
     docker:
