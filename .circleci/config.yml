@@ -1,38 +1,25 @@
 version: 2.1
+
 jobs:
-  test_docker_build:
-    working_directory: ~/dspace-development/docker
-    docker:
-      - image: quay.io/ansible/toolset:3.5.0
-    steps:
-      - checkout
-      - setup_remote_docker
-      - run:
-          name: Ensure that the Dockerfile builds
-          command: |
-            cd docker/
-            docker build -t pulibrary/dspace-docker-base .
   test_documentation:
     working_directory: ~/dspace-development/docs
     docker:
-      - image: circleci/python:3.9
+      - image: cimg/python:3.9
+        environment:
+          PIPENV_VENV_IN_PROJECT: true
     steps:
       - checkout
-      - run: sudo chown -R circleci:circleci /usr/local/bin
-      - run: sudo chown -R circleci:circleci /usr/local/lib/python3.9/site-packages
       - restore_cache:
           key: dspace-development-{{ .Branch }}-{{ checksum "Pipfile.lock" }}
       - run:
           name: Install the Python dependencies
           command: |
-            sudo pip install pipenv
+            pip install pipenv
             pipenv install
       - save_cache:
           key: dspace-development-{{ .Branch }}-{{ checksum "Pipfile.lock" }}
           paths:
-            - ".venv"
-            - "/usr/local/bin"
-            - "/usr/local/lib/python3.9/site-packages"
+            - ".pyenv/versions/3.9.10/lib/python3.9/site-packages"
       - run:
           name: Build the documentation
           command: |
@@ -41,8 +28,8 @@ jobs:
       - store_artifacts:
           path: ~/dspace-development/docs/_build
           destination: docs
+
 workflows:
   ci:
     jobs:
-      - test_docker_build
       - test_documentation
