@@ -1,5 +1,21 @@
 # Symplectic Elements
 
+## Server Infrastructure
+
+For the Elements hosts, there exists two environments:
+
+- Quality Assurance (QA)
+- Production
+
+This pattern has been inherited from the Office of Information Technology, and currently, the following hosts are are available only from within the Princeton University network:
+
+- oaworkflow-dev.princeton.edu (cisdr301w.princeton.edu)
+- oaworkflow.princeton.edu (cisdr201w.princeton.edu)
+
+Both of these hosts utilize the Windows Server 2012 R2 operating system.
+
+Within the documentation for the Elements installation, the `oaworkflow-dev` environment is referred consistently to as the `qa` environment, and is used as both a `development` and `staging` environment. `oaworkflow` alone serves as the production environment.
+
 ## The Elements REST API
 
 First, please ensure that you have access to the Princeton University VPN by using the `GlobalProtect` client. This can be obtained by following the documentation on https://workcontinuity.princeton.edu/remoteaccess.
