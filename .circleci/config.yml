@@ -19,7 +19,7 @@ jobs:
       - save_cache:
           key: dspace-development-{{ .Branch }}-{{ checksum "Pipfile.lock" }}
           paths:
-            - ".pyenv/versions/3.9.10/lib/python3.9/site-packages"
+            - ".pyenv/versions/3.9.12/lib/python3.9/site-packages"
       - run:
           name: Build the documentation
           command: |
