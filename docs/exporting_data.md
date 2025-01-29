@@ -1,7 +1,11 @@
 # Exporting data from DataSpace
 
 ## Using the built-in tool
-TODO: pending to add this section
+There is a built-in tool in DSpace that we can use to export data: `/dspace/bin/dspace export`. There is an example of use here: https://github.com/pulibrary/dataspace_preservation/blob/main/export_from_dspace.sh#L12
+
+From the looks of it we just give it an ARK and it does the work.
+
+TODO: Add an example with real data.
 
 
 ## Using the REST API
