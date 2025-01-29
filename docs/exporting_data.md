@@ -1,11 +1,31 @@
 # Exporting data from DataSpace
 
 ## Using the built-in tool
-There is a built-in tool in DSpace that we can use to export data: `/dspace/bin/dspace export`. There is an example of use here: https://github.com/pulibrary/dataspace_preservation/blob/main/export_from_dspace.sh#L12
+There is a built-in tool in DSpace that we can use to export data: `/dspace/bin/dspace export`.
+Below is an example of running this tool to export item with ARK `88435/dsp01w6634361k`:
 
-From the looks of it we just give it an ARK and it does the work.
+```
+sudo /dspace/bin/dspace export -i "88435/dsp01w6634361k" -t ITEM -d /home/pulsys/dspace_exports_hector/ -n 1
+```
 
-TODO: Add an example with real data.
+Once the `dspace export` tool has been run the resulting data will be under `/home/pulsys/dspace_exports_hector/1`.
+If you list the contents of this directory it should look like this:
+
+```
+$ ls -la /home/pulsys/dspace_exports_hector/1
+total 640
+drwxr-xr-x 2 root   root     4096 Jan 29 16:08 .
+drwxrwxr-x 3 pulsys pulsys   4096 Jan 29 16:08 ..
+-rw-r--r-- 1 root   root      156 Jan 29 16:08 contents
+-rw-r--r-- 1 root   root   604999 Jan 29 16:08 DataSpaceFundingModel_20100827.pdf
+-rw-r--r-- 1 root   root    17461 Jan 29 16:08 DataSpaceFundingModel_20100827.pdf.txt
+-rw-r--r-- 1 root   root     3132 Jan 29 16:08 dublin_core.xml
+-rw-r--r-- 1 root   root       21 Jan 29 16:08 handle
+-rw-r--r-- 1 root   root     3311 Jan 29 16:08 license.txt
+-rw-r--r-- 1 root   root      186 Jan 29 16:08 metadata_pu.xml
+```
+
+For reference, [here is another example of use](https://github.com/pulibrary/dataspace_preservation/blob/main/export_from_dspace.sh#L12) of the `dspace export` tool.
 
 
 ## Using the REST API
