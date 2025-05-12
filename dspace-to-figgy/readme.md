@@ -54,3 +54,12 @@ sudo /dspace/bin/dspace export -i "88435/dsp012801pg38m" -t ITEM -d /home/pulsys
 # Running the script
 
 SSH to the DSpace server and run the script `export_collection.sh`. See [Exporting data from DataSpace](https://github.com/pulibrary/dspace-development/blob/main/docs/exporting_data.md) for more details about the export tool.
+
+
+# Getting the files down
+
+Since we use an intermediary machine (bastion machine) to connect to the DSpace server we need to reference that machine when we copy the files down from the DSpace server:
+
+```
+scp -r -J xxx@bastion xxx@gcp-machine:/home/pulsys/dspace_exports_hector/6/ .
+```
